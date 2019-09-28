@@ -111,7 +111,7 @@ author:
   avatar           : "/assets/images/profile.jpeg"
   bio              : "Server **junior developer**"
   location         : "Seoul"
-  email            : "honggasm@gmail.com"
+  email            : 
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
