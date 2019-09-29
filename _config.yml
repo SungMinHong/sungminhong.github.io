@@ -13,7 +13,7 @@
 show_downloads: true
 # theme: jekyll-theme-slate
 remote_theme           : "mmistakes/jekyll-theme-slate" #"mmistakes/minimal-mistakes"
-minimal_mistakes_skin    : "dark" # "default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+# minimal_mistakes_skin    : "dark" # "default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale                   : "ko-KR"
