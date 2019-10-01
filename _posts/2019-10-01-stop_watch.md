@@ -1,7 +1,7 @@
 ---
 title: "[스프링 스탑워치] "
 date: 2019-09-29 20:23:28 -0400
-categories: 스프링 시큐리티
+categories: 스프링 스탑워치
 ---
 
 # Spring StopWatch 테스트
