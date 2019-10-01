@@ -1,3 +1,9 @@
+---
+title: "[스프링 스탑워치] "
+date: 2019-09-29 20:23:28 -0400
+categories: 스프링 시큐리티
+---
+
 # Spring StopWatch 테스트
 
 - Spring StopWatch를 사용하지 않는 경우 개발자들은 대개 다음과 같은 방식으로 stop watch 기능을 구현한다. 
