@@ -280,6 +280,11 @@ compress_html:
     envs: development
 
 
+comments:
+  provider               : "disqus"
+  disqus:
+    shortname            : sungminhong # Short-name
+
 # Defaults
 defaults:
   # _posts
@@ -290,6 +295,6 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: # true
+      comments: true #댓글 활성화
       share: true
       related: true
