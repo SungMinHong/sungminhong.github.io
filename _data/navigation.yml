@@ -1,3 +1,7 @@
 main:
-  - title: "네비게이션 테스트 1"
+  - title: "테스트 1"
+    url: /tech/2019-09-29-security.md
+  - title: "테스트 2"
+    url: /tech/2019-09-29-security.md
+  - title: "테스트 3"
     url: /tech/2019-09-29-security.md
