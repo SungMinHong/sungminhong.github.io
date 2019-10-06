@@ -1,8 +1,13 @@
 ---
+layout: post
 title: "[웹 통신] 웹페이지 반환 과정"
 date: 2019-09-28 17:04:28
+lastmod : 2019-10-06 12:00:00
 categories: network
 tag: [web, network]
+sitemap :
+  changefreq : daily
+  priority : 1.0
 ---
 
 # 브라우저 주소창에 도메인을 입력하고 웹 페이지를 받는 과정.
