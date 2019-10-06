@@ -2,6 +2,7 @@
 title: "[웹 통신] 웹페이지 반환 과정"
 date: 2019-09-28 17:04:28
 categories: network
+tag: [web, network]
 ---
 
 # 브라우저 주소창에 도메인을 입력하고 웹 페이지를 받는 과정.
@@ -75,8 +76,7 @@ DNS 서버가 도메인에 대한 IP 주소를 송신하는 과정은 약간 복
 
 <br/> 
 
->  출처: https://www.youtube.com/watch?v=2ZUxoi7YNgs#action=share
-
->  출처:https://medium.com/@pks2974/website%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%B3%B4%EC%97%AC%EC%A7%80%EA%B2%8C%EB%90%98%EB%8A%94-%EA%B1%B8%EA%B9%8C-1-108009d4bdb
-
->  출처: https://hahahoho5915.tistory.com/15
+> 출처: <br/>
+[How the DNS works](https://www.youtube.com/watch?v=2ZUxoi7YNgs#action=share) <br/>
+[medium 박성룡: Website는 어떻게 보여지게되는 걸까?](https://medium.com/@pks2974/website%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%B3%B4%EC%97%AC%EC%A7%80%EA%B2%8C%EB%90%98%EB%8A%94-%EA%B1%B8%EA%B9%8C-1-108009d4bdb) <br/>
+[TCP/IP 4계층(TCP/IP 4 Layer)](https://hahahoho5915.tistory.com/15)
