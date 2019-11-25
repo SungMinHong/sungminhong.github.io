@@ -1,3 +1,14 @@
+---
+title: "[JAVA] Arrays.asList() 삽질기!"
+date: 2019-11-25 17:00:00
+lastmod : 2019-11-25 17:00:00
+categories: [JAVA]
+tags: [JAVA, wasteOfTime]
+sitemap :
+  changefreq : daily
+  priority : 1.0
+---
+
 # Arrays.ArrayList 삽질기..
 
 ## 배경
