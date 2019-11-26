@@ -1,8 +1,8 @@
 ---
-title: "[스프링 스탑워치] 실행속도 측정하기"
+title: "[Spring] 스프링 스톱워치(Spring StopWatch)로 실행속도 측정하기"
 date: 2019-09-29 20:23:28 -0400
 lastmod : 2019-10-06 12:00:00
-categories: [spring]
+categories: [Spring]
 tags: [spring, stopwatch]
 sitemap :
   changefreq : daily
