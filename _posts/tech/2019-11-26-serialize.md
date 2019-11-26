@@ -1,3 +1,14 @@
+---
+title: "[JAVA] 자바 시리얼라이즈 개념과 주의할점"
+date: 2019-10-03 16:00:00
+lastmod : 2019-10-06 12:00:00
+categories: [OS]
+tags: [JAVA, serialize]
+sitemap :
+  changefreq : daily
+  priority : 1.0
+---
+
 ## 개념
 - 자바 직렬화란 자바 시스템 내부에서 사용되는 객체 또는 데이터를 외부의 자바 시스템에서도 사용할 수 있도록 바이트(byte) 형태로 데이터 변환하는 기술과 바이트로 변환된 데이터를 다시 객체로 변환하는 기술(역직렬화)을 아울러서 이야기한다.
 - 시스템적으로 이야기하자면 JVM(Java Virtual Machine 이하 JVM)의 메모리에 상주(힙 또는 스택)되어 있는 객체 데이터를 바이트 형태로 변환하는 기술과 직렬화된 바이트 형태의 데이터를 객체로 변환해서 JVM으로 상주시키는 형태를 같이 이야기한다.
@@ -6,8 +17,8 @@
 - 자바 기본(primitive) 타입과 java.io.Serializable 인터페이스를 상속받은 객체는 직렬화 할 수 있는 기본 조건을 가집니다.
 > 기본 개념 출처: http://woowabros.github.io/experience/2017/10/17/java-serialize.html
 
-## 주의할 점:
-### subList를 사용하지 말자
+## 주의할 점(사실 요게 메인 ㅎㅎ):
+### 1. 자바 직렬화가 필요한 경우 subList를 사용하지 말자!(캐시에서도 자바 직렬화가 필요한 경우가 있을 수 있다!)
 - subList를 사용한 경우 
 ~~~java
     @Test(expected = NotSerializableException.class)
@@ -136,7 +147,7 @@ Exception in thread "main" java.io.NotSerializableException: java.util.RandomAcc
     }
 ~~~
 
-### 추가적으로 Iterables.partition(final Iterable<T> iterable, final int size)는 직렬화가 필요한 경우 절대 사용하면 안된다!
+### 2. 추가적으로 Iterables.partition(final Iterable<T> iterable, final int size)는 자바 직렬화가 필요한 경우 절대 사용하면 안된다!
 - Iterators에서 내부 적으로 마지막 리스트의 크기가 원하는 갯수 미만으로 떨어지는 경우 subList가 호출된다.
 - subList에 직렬화 인터페이스가 없어 문제가 발생하지만 별 다른 설명이 없다. 문제가 있는 자바 라이브러리라고 볼 수 있다.
 ~~~ java
@@ -227,7 +238,7 @@ Exception in thread "main" java.io.NotSerializableException: java.util.RandomAcc
 ~~~
 
 - 마찬가지로 RandomAccessSubList에는 직렬화 인터페이스가 구현되지 않았다.
-- 이로 인해 직렬화 오류가 발생하게 된다.
+- 이로 인해 직렬화 예외가 발생하게 된다.
 ~~~java
 class RandomAccessSubList<E> extends SubList<E> implements RandomAccess {
     RandomAccessSubList(AbstractList<E> list, int fromIndex, int toIndex) {
