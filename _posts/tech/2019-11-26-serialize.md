@@ -1,6 +1,6 @@
 ---
 title: "[JAVA] 자바 시리얼라이즈 개념과 주의할점"
-date: 2019-11-26 16:00:00
+date: 2019-11-26 00:00:00
 lastmod : 2019-11-26 00:00:00
 categories: [JAVA]
 tags: [JAVA, serialize]
