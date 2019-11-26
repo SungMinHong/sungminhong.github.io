@@ -20,6 +20,7 @@ sitemap :
 ## 주의할 점(사실 요게 메인 ㅎㅎ):
 ### 1. 자바 직렬화가 필요한 경우 subList를 사용하지 말자!(캐시에서도 자바 직렬화가 필요한 경우가 있을 수 있다!)
 - subList를 사용한 경우 
+
 ~~~java
     @Test(expected = NotSerializableException.class)
     public void ArrayList_subList_테스트() throws IOException {
@@ -73,6 +74,7 @@ sitemap :
 
 - AbstractList내 subList를 통해 RandomAccessSubList 혹은 SubList가 생성된다.
 - Vector와 ArrayList는 subList메서드를 재 구현 했지만 결과적으로 반환형으로 SubList를 직접 반환하거나 랩핑해서 반환한다.
+
 ~~~java
     public List<E> subList(int fromIndex, int toIndex) {
         return (this instanceof RandomAccess ?
@@ -82,6 +84,7 @@ sitemap :
 ~~~
 
 - 하지만 RandomAccessSubList와 SubList에는 직렬화 인터페이스를 구현하지 않았다.
+
 ~~~java
 class RandomAccessSubList<E> extends SubList<E> implements RandomAccess {
     RandomAccessSubList(AbstractList<E> list, int fromIndex, int toIndex) {
@@ -115,16 +118,19 @@ class SubList<E> extends AbstractList<E> {
     }
 ~~~
 - 이로 인해 직렬화 에러가 발생하게 된다.
+
 ~~~
 Exception in thread "main" java.io.NotSerializableException: java.util.RandomAccessSubList
 ~~~
 
 - 만약 직렬화를 할 대상 리스트가 subList 반환한 결과인 경우 ArrayList로 감싸서 사용해야 한다.
+
 ~~~java
  list = new ArrayList<>(list.subList(0, 2));
 ~~~
 
 - ArrayList의 생성자에 컬렉션을 구현한 인스턴스를 넘길 경우 copyOf를 통해 깊은 복사를 한다. 또한 java.io.Serializable를 implements 하고 있기 때문에 직렬화가 가능하다.
+
 ~~~java
      /**
      * Constructs a list containing the elements of the specified
@@ -150,6 +156,7 @@ Exception in thread "main" java.io.NotSerializableException: java.util.RandomAcc
 ### 2. 추가적으로 Iterables.partition(final Iterable<T> iterable, final int size)는 자바 직렬화가 필요한 경우 절대 사용하면 안된다!
 - Iterators에서 내부 적으로 마지막 리스트의 크기가 원하는 갯수 미만으로 떨어지는 경우 subList가 호출된다.
 - subList에 직렬화 인터페이스가 없어 문제가 발생하지만 별 다른 설명이 없다. 문제가 있는 자바 라이브러리라고 볼 수 있다.
+  
 ~~~ java
   // Iterators.java
   private static <T> UnmodifiableIterator<List<T>> partitionImpl(
@@ -186,6 +193,7 @@ Exception in thread "main" java.io.NotSerializableException: java.util.RandomAcc
 
 - 위 list.subList(0, count)가 호출되면
 - Collections내 UnmodifiableRandomAccessList의 subList가 호출된다.
+
 ~~~java
     /**
      * @serial include
@@ -218,6 +226,7 @@ Exception in thread "main" java.io.NotSerializableException: java.util.RandomAcc
 
 - AbstractList내 subList를 통해 RandomAccessSubList가 생성된다.
 - 생성된 RandomAccessSubList는 UnmodifiableRandomAccessList의 생성자로 전달된다.
+
 ~~~java
     public List<E> subList(int fromIndex, int toIndex) {
         return (this instanceof RandomAccess ?
@@ -227,6 +236,7 @@ Exception in thread "main" java.io.NotSerializableException: java.util.RandomAcc
 ~~~
 - 결과적으로 UnmodifiableRandomAccessList의 부모 클래스인 UnmodifiableList에 있는 list 필드에 RandomAccessSubList가 저장된다. 
 - 하지만 ArrayList 생성자와 다르게 UnmodifiableRandomAccessList 생성자에 리스트를 넘긴 경우 깊은 복사를 하지 않는다. 얕은 복사로 단지 래핑만을 한다.
+
 ~~~java
  static class UnmodifiableList<E> extends UnmodifiableCollection<E>
                                   implements List<E> {
@@ -239,6 +249,7 @@ Exception in thread "main" java.io.NotSerializableException: java.util.RandomAcc
 
 - 마찬가지로 RandomAccessSubList에는 직렬화 인터페이스가 구현되지 않았다.
 - 이로 인해 직렬화 예외가 발생하게 된다.
+
 ~~~java
 class RandomAccessSubList<E> extends SubList<E> implements RandomAccess {
     RandomAccessSubList(AbstractList<E> list, int fromIndex, int toIndex) {
