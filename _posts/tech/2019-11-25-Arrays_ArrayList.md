@@ -20,7 +20,7 @@ sitemap :
 <br/>
 
 ## 삽질 과정
-### 1. Arrays.asList() 를 먼저 확인해봤다.
+### Arrays.asList() 를 먼저 확인해봤다.
 ~~~java
     /**
      * Returns a fixed-size list backed by the specified array.  (Changes to
@@ -46,7 +46,7 @@ sitemap :
     }
 ~~~
 
-### 2 음.. ArrayList를 보니 살짝 멘붕이 왔다.. ArrayList는 분명히 아래와 같이 add, remove 등등을 override하고 있었기 때문이다.
+### 음.. ArrayList를 보니 살짝 멘붕이 왔다.. ArrayList는 분명히 아래와 같이 add, remove 등등을 override하고 있었기 때문이다.
 ~~~java
      /**
      * Appends the specified element to the end of this list.
@@ -85,7 +85,7 @@ sitemap :
     }
 ~~~
 
-### 3. 자바는 다형성을 제공하기 때문에 분명히 오버라이딩한 ArrayList의 메서드가 호출됐어야 하는데 아래 AbstractList의 add, remove가 호출되고 있었다!
+### 자바는 다형성을 제공하기 때문에 분명히 오버라이딩한 ArrayList의 메서드가 호출됐어야 하는데 아래 AbstractList의 add, remove가 호출되고 있었다!
 
 ~~~java
     /**
@@ -119,7 +119,7 @@ sitemap :
 ~~~
 
 
-### 4. 그래서 처음으로 돌아와 Arrays.asList()가 반환한 ArrayList를 확인해 봤다. 아뿔싸 그 ArrayList는 우리가 흔히 사용하던 java.util 내 ArrayList가 아니었다. 정확히 아래와 같이 Arrays내에 정의돼있는 inner class였다!
+### 그래서 처음으로 돌아와 Arrays.asList()가 반환한 ArrayList를 확인해 봤다. 아뿔싸 그 ArrayList는 우리가 흔히 사용하던 java.util 내 ArrayList가 아니었다. 정확히 아래와 같이 Arrays내에 정의돼있는 inner class였다!
 ~~~java
     /**
      * @serial include
