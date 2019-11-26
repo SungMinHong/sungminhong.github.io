@@ -1,5 +1,5 @@
 ---
-title: "[JAVA] 자바 시리얼라이즈 개념과 주의할점"
+title: "[JAVA] 자바 직렬화(serialize) 개념과 주의할 점"
 date: 2019-11-26 11:00:00
 lastmod : 2019-11-26 11:00:00
 categories: [JAVA]
