@@ -9,8 +9,6 @@ sitemap :
   priority : 1.0
 ---
 
-# Arrays.ArrayList 삽질기..
-
 ## 배경
 - Arrays.asList() 사용 중 add(), remove() 등의 메서드가 동작하지 못하고 다음과 같은 예외를 발생시키고 있었다.
 
