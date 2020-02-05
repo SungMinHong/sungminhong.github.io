@@ -118,6 +118,7 @@ class SubList<E> extends AbstractList<E> {
     }
 ~~~
 - 이로 인해 직렬화 에러가 발생하게 된다.
+- 추가적으로 SubList 클래스처럼 실제 List를 만들지 않고 단순히 전달 받은 list를 참조하고 offset과 size를 저장하는 식의 방식으로 구현한 클래스(view용 collection)들이 있다. 만약 파라메터로 전달 받은 실제 list가 변경되는 경우 문제가 생길 수 있으니 이 점도 주의하자.
 
 ~~~
 Exception in thread "main" java.io.NotSerializableException: java.util.RandomAccessSubList
