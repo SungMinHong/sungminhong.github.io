@@ -13,7 +13,7 @@ sitemap :
 
 ## Nginx에서 cache-control 헤더 관련  조사
 결론적으로 프록시(ex: Nginx, Apach 등)에서  cache-control 헤더를 'no-cache'에서 'no-store'로 변경 하더라도 차이가 없을 것 같습니다.
-cache-control 헤더는 클라이언트(request)와 서버(response) 모두에서 사용이 가능했습니다. 하지만 어디에서 사용하는 지에 따라 의미가 살짝 다른 면이 있었습니다. (http://shorturl.at/cwIN3)
+cache-control 헤더는 클라이언트(request)와 서버(response) 모두에서 사용이 가능했습니다. 하지만 어디에서 사용하는 지에 따라 의미가 살짝 다른 면이 있었습니다. (참조: [request, response내 cachce-control header 의미 차이](http://shorturl.at/cwIN3))
 request의 cache-control 헤더에 no-cache attribute가 담겨 있다면 이 의미는 "end-to-end reload" 와 같은 의미였습니다.
 현재 Nginx에 있는 config 설정은 아래와 같이 설정돼 있었습니다.
 
@@ -28,6 +28,6 @@ proxy_set_header Cache-Control "no-cache";
 
 ---
 출처: <br/>
-https://stackoverflow.com/questions/14541077/why-is-cache-control-attribute-sent-in-request-header-client-to-server <br/>
-https://stackoverflow.com/questions/42652931/why-use-cache-control-header-in-request <br/>
-https://stackoverflow.com/questions/1046966/whats-the-difference-between-cache-control-max-age-0-and-no-cache <br/>
+[why-is-cache-control-attribute-sent-in-request-header-client-to-server](https://stackoverflow.com/questions/14541077/why-is-cache-control-attribute-sent-in-request-header-client-to-server) <br/>
+[why-use-cache-control-header-in-request](https://stackoverflow.com/questions/42652931/why-use-cache-control-header-in-request) <br/>
+[whats-the-difference-between-cache-control-max-age-0-and-no-cache](https://stackoverflow.com/questions/1046966/whats-the-difference-between-cache-control-max-age-0-and-no-cache) <br/>
