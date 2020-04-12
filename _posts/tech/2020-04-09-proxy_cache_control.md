@@ -1,9 +1,9 @@
 ---
-title: "[survey] Nginx 개선을 위한 사전 조사"
+title: "[Nginx] Nginx 개선을 위한 사전 조사"
 date: 2020-04-09 16:00:00
-lastmod : 2020-04-09 16:00:00
+lastmod : 2020-04-12 16:00:00
 categories: [survey]
-tags: [nginx, porxy, customizing, survey]
+tags: [nginx, porxy, cache-contorl, customizing, survey]
 sitemap :
   changefreq : daily
   priority : 1.0
