@@ -21,7 +21,7 @@ title                    : "MINI'S BLOG"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "홍성민"
-description              : "홍성민의 개인 블로그입니다."
+description              : "개인 블로그입니다."
 url                      : "https://sungminhong.github.io"
 baseurl                  : ""
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -110,7 +110,7 @@ analytics:
 author:
   name             : "SungMin"
   avatar           : "/assets/images/profile.jpeg"
-  bio              : "블로그를 수정중입니다."
+  bio              : "just do it and keep going!"
   location         : "Seoul, Ko"
   email            : 
   links:
