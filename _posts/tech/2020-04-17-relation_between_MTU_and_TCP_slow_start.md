@@ -41,7 +41,7 @@ MSS = 1500 - 20 - 20 = 1460(byte)
 ~~~
 +) Ethernet, MTU, MSS 크기
 ![Ethernet, MTU, MSS 크기](https://www.networkcomputing.com/sites/default/files/MSS-2.png)
-위 기준을 단순화해 CWND = MSS로 가정하고 계산해본다면 클라이언트는 ACK를 받을 때 마다 아래와 같이 window 사이즈를 증가 시킵니다. 10번의 ACK가 성공적이었다면 아주 큰 데이터도 이렇게 보낼 수 있다고 합니다. (CWND를 결정하는 조건은 [RFC5691](https://tools.ietf.org/html/rfc5681)를 확인해주세요. 보통 TCP / IP 스택 구현에 따라 다르다고 합니다. 결국 이 쪽 설정은 시스템엔지니어링 분야인 것 같습니다.. ㅎ 참조:  [리눅스 서버 커널 파리미터 이야기](https://meetup.toast.com/posts/53) )
+위 기준을 단순화해 CWND = MSS로 가정하고 계산해본다면 클라이언트는 ACK를 받을 때 마다 아래와 같이 window 사이즈를 증가 시킵니다. 10번의 ACK가 성공적이었다면 아주 큰 데이터도 이렇게 보낼 수 있다고 합니다. (CWND를 결정하는 조건은 [RFC5691](https://tools.ietf.org/html/rfc5681)를 확인해주세요. 보통 TCP / IP 스택 구현에 따라 다르다고 합니다. 참조:  [리눅스 서버 커널 파리미터 이야기](https://meetup.toast.com/posts/53) )
 ~~~
 1460 * 1 -> 1460 * 2 -> 1460 * 4 -> 1460 * 8 -> ... -> 1460 * 1024 
 // TCP header내 window size field 값보다 작고 수신자 측의 최대 수용 가능한 Window Size보다 작은 경우 증가할 수 있습니다.
