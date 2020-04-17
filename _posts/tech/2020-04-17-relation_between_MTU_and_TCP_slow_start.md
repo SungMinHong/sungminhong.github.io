@@ -3,7 +3,7 @@ title: "[HTTP] MTU와 TCP slow start는 어떤 관계가 있을까?"
 date: 2020-04-17 16:00:00
 lastmod : 2020-04-17 16:00:00
 categories: [Http]
-tags: [Http, client, study, Nagle's algorithm, TCP slow start]
+tags: [HTTP, client, study, Nagle's algorithm, TCP slow start]
 sitemap :
   changefreq : daily
   priority : 1.0
