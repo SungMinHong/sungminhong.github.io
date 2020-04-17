@@ -26,7 +26,7 @@ TCP slow start는 window size를 점차 늘리면서 통신하는 방법입니�
 가장 초기에 설정하는 window 크기는 다음과 같은 명칭을 가지고 있습니다. initial congestion window size(CWND).
 그리고 window size 증가는 다음과 같이 진행될 수 있습니다.
 ~~~
-CWND * 1-> CWND * 2 -> CWND * 4 -> CWND * 8    //지수 증가
+CWND * 1 -> CWND * 2 -> CWND * 4 -> CWND * 8    //지수 증가
 ~~~
 +) 최대로 증가할 수 있는 window size는 TCP header의 window size field를 확인해야 알 수 있습니다. 추가 설정을 하지 않으면 2*16 = 65535byte = 64kbyte가  전송 가능한 최대 window size입니다. TCP header, RFC 1323에서는 TCP window scaling이라는 옵션을 정의하고 있습니다. TCP 헤더의 옵션 필드에 window scale라는 필드를 정의하여 advertise할 수 있는 receiver window size를 키울 수 있습니다.
 
