@@ -1,5 +1,5 @@
 ---
-title: "[Http Client] MTU와 TCP slow start는 어떤 관계가 있을까?"
+title: "[HTTP] MTU와 TCP slow start는 어떤 관계가 있을까?"
 date: 2020-04-17 16:00:00
 lastmod : 2020-04-17 16:00:00
 categories: [Http]
