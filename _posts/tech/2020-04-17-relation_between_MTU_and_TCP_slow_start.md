@@ -1,9 +1,9 @@
 ---
-title: "[Http Client] OkHttp 동작 흐름도 정리"
-date: 2020-04-12 16:00:00
-lastmod : 2020-04-12 16:00:00
+title: "[Http Client] MTU와 TCP slow start는 어떤 관계가 있을까?"
+date: 2020-04-17 16:00:00
+lastmod : 2020-04-17 16:00:00
 categories: [Http]
-tags: [Http, client, study]
+tags: [Http, client, study, Nagle's algorithm, TCP slow start]
 sitemap :
   changefreq : daily
   priority : 1.0
