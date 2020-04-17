@@ -19,7 +19,7 @@ sitemap :
 ~~~
 답변: MTU와는 관련이 있습니다. 하지만 Nagle's algorithm과는 관련이 없습니다.
 ~~~
-그렇게 생각한 이유를 아래와 같이 정리해봤습니다. :lying_face:
+그렇게 생각한 이유를 아래와 같이 정리해봤습니다. :point_down:
 
 ## 1. TCP slow start
 TCP slow start는 window size를 점차 늘리면서 통신하는 방법입니다. 이는 송신측의 전송 속도가 수신측의 수신 속도보다 빨라 발생하는 문제를 해결하기 위해 고안된 알고리즘입니다.
@@ -56,7 +56,7 @@ MTU를 통해 MSS가 결정되고 MSS에 의해 CWND가 결정되고 CWND가 TCP
 Nagle’s algorithm에서도 MTU를 이용해 버퍼의 크기를 결정합니다. MTU를 사용한다는 공통점만 있을 뿐 둘의 연관성은 없습니다. Nagle’s algorithm 구현에 사용되는 버퍼의 크기가 의미하는 바는 언제까지 데이터를 보내지 않고 기다릴 것 인지를 의미합니다. 즉 얼마나 큰 데이터를 보낼지와는 관련이 없습니다. 만약 크기가 너무 큰 경우 버퍼에 쌓지 않고 write를 할 뿐입니다(여기까지만 애플리케이션에서 통제). 그 이후 TCP slow start에 의해 정해진 최대 전송 가능 window size에 따라 segment가 전송됩니다.
 
 ## TMI :zipper_mouth_face:
-1. 아래 그림과 같이 네트워크 망에 문제가 발생했을 때는 도표와 같이 window size를 전체적으로 낮추고 네트워크 망이 회복되면 Fast Retransmit이라는 방법으로 window size를 빠르게 복구한다고 합니다.
+1. 네트워크 망에 문제가 발생했을 때는 아래 도표와 같이 window size를 전체적으로 낮추고 네트워크 망이 회복되면 Fast Retransmit이라는 방법으로 window size를 빠르게 복구한다고 합니다.
 ![Fast Retransmit](https://user-images.githubusercontent.com/18229419/79529495-c3238480-80a7-11ea-929e-c0910db20402.png)
 
-2. connection을 처음 만들때 TCP slow start를 사용하기 때문에 Rest connection pool는 관련이 있습니다. 추가적으로 알아보면 좋을 것 같습니다. (HTTP3.0은 UDP이니 제외)
+2. connection을 처음 만들때 TCP slow start를 사용하기 때문에 Rest connection pool과도 관련이 있습니다. 추가적으로 알아보면 좋을 것 같습니다. (HTTP3.0은 UDP이니 제외)
