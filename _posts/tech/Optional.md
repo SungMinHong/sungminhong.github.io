@@ -1,0 +1,54 @@
+---
+title: "[JAVA] Optional을 필드에 써도 된다고?"
+date: 2020-04-21 16:00:00
+lastmod : 2020-04-21 16:00:00
+categories: [JAVA]
+tags: [JAVA, Optional, Reflection]
+sitemap :
+  changefreq : daily
+  priority : 1.0
+---
+## 글을 쓰게 된 이유
+회사에서 코드리뷰를 하면서 Optional 사용법에 관한 논의가 있었습니다. :flushed:  
+기록을 위해 쓰면서도 혹시 도움이 되실 분이 있을까 해서 공개로 포스팅했습니다.
+
+## 코드리뷰 코멘트
+~~~
+ 리뷰어1:
+ Optional 값들이 null을 return하는 것으로 대체된 것으로 보입니다.
+ 이와 같이 변경함으로서의 이점이 어떤 건가요?
+
+ 필자:
+ Optional은 가볍지 않고 serializable 을 구현하고 있지 않아 클래스 필드로 사용하는 것을 안티 패턴으로 정의하고 있습니다.
+ 그래서 조금씩 도메인별로 제거할 생각중입니다 ㅎㅎ
+ 관련 링크: https://dzone.com/articles/optional-anti-patterns
+
+ 리뷰어2:
+ Optional 이 field, parameter 로 쓰이는 방식은 좋지 않는건 맞습니다.
+ null 로 처리된다면 쓰는쪽에서 항상 null check 를 해야 할텐데 더 좋은 방법은 없을까요?
+			
+ 필자:
+ 아직 더 좋은 방법을 결정하지는 못했습니다. ㅠ ㅠ 아직까지 알아본 봐로는 trade off가 발생할 것 같습니다.
+ Optional의 가장 큰 장점은 객체가 null 일 수 있음을 사용자에게 알려 처리를 강제한다는 점 같습니다.
+ 그래서인지 Optional 같은 container 객체를 만들지 않고서는 그런 장점을 살리기는 힘들것 같습니다. (특히 field 에서 사용하는 Optional을 EmptyObject 와 팩토리 생성 방식으로 다 적용하기는 무리가 있을 것 같습니다. )
+ 오히려 “class field에 optional을 사용해도 돼” 라는 글도 있었습니다. 관련링크: https://dev.to/piczmar_0/java-optional-in-class-fields-why-not-40df
+ 하지만 Optional이 serializable를 구현하지 않아 발생할 수 있는 등의 문제점을 좀 더 알아보도록 하겠습니다.
+ (ex: 글로벌캐시를 사용할 때 serialize가 필요한 경우 등)
+	
+ 리뷰어3:
+ 예전에 메모했던건데 https://bistros.tistory.com/entry/Java-Optional%EC%97%90-%EB%8C%80%ED%95%9C-%EC%83%9D%EA%B0%81
+ 저는 가능한 getMethod 에만 써요.
+ 
+ 필자: 
+ 감사합니다!
+ 자바에서 직렬화(serialize) 할 때 Optional을 반환하는 get method를 사용 안하고 reflection을 사용해 필드에 직접 접근 하는군요. 그렇다면 추후 자바 직렬화, 역직렬화를 사용할 시에도 문제가 발생하지 않겠네요!
+ XX님 의견처럼 getMethod에만 Optional을 사용하면 좋을 것 같습니다!
+~~~
+
+### 결론
+위와 같은 이유로 Optional을 꼭 필요한 get method에만 적용할 생각입니다. 
+<br/>
+<br/>
+제가 모든 get method에 Optional을 적용하지 않는 이유는 애초에 자바라는 언어 자체가 null able 을 전제로 하기 때문입니다.
+그래서 null able을 가정하고 코드를 작성하고 optional을 사용해서 반환했을 떄 더 처리가 깔끔할 때만 추가해 주려고 합니다. 
+또한 컬렉션 같은 경우는 Optional이 아닌 empty colletion 객체를 사용해 반환할 생각입니다.
