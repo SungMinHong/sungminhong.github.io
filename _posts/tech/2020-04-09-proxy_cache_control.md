@@ -26,6 +26,57 @@ proxy_set_header Cache-Control "no-cache";
 
 단순히 잘 돌아가니 놔두자라는 생각을 버리고 개선점이 있는지 꾸준히 탐구하고자 합니다. 시간이 날 때마다 추가로 조사해보려고 합니다.
 
++) 아래에는 설정 최적화를 관련해 추가로 조사된 내용을 기록해뒀습니다.
+
+## [nginx 설정 최적화](https://www.nginx.com/blog/help-the-world-by-healing-your-nginx-configuration/)
+
+### 정적파일 압축
+~~~
+gzip on;
+gzip_types application/xml application/json text/css text/javascript application/javascript;
+gzip_vary on;
+gzip_comp_level 6;
+gzip_min_length 500;
+~~~
+### 캐시헤더 설정
+~~~
+location ~* \.(?:jpg|jpeg|gif|png|ico|woff2)$ {
+    expires 1M;
+    add_header Cache-Control "public";
+}
+~~~
+### HTTP/2 지원
+~~~
+listen 443 ssl http2;
+~~~
+### 로깅 최적화
+~~~
+- 정적 파일 로깅 끄기
+location ~* \.(?:jpg|jpeg|gif|png|ico|woff2|js|css)$ {
+    access_log off;
+}
+~~~
+
+~~~
+- 실패한 요청만 로깅
+map $status $loggable {
+    ~^[23] 0;
+    default 1;
+}
+access_log /var/log/nginx/access.log combined if=$loggable;
+~~~
+
+~~~
+- 버퍼링 적용
+access_log /var/log/nginx/access.log combined buffer=512k flush=1m;
+~~~
+### URL 대역폭 제한
+~~~
+location / {
+    limit_rate_after 500k;
+    limit_rate 50k;
+}
+~~~
 ---
 출처: <br/>
 [why-is-cache-control-attribute-sent-in-request-header-client-to-server](https://stackoverflow.com/questions/14541077/why-is-cache-control-attribute-sent-in-request-header-client-to-server) <br/>
