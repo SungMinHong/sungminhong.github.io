@@ -28,6 +28,18 @@ sitemap :
 ~~~
 ## 2. 몇 개의 단어 단위로 의미를 파악하며 끊어 읽기
 영문을 읽을 때는 한 단어씩 해석하는 것보다 **몇 개의 단어로 묶어 의미를 파악**하면 빠르게 읽을 수 있습니다.
+몇 개의 단어를 슬래시(/) 기호로 구분해서 읽는 것을 **'끊어 읽기'** 라고 합니다. 방금 전에 본 예문의 경우 다음과 같이 나눌 수 있습니다.
+~~~
+"I have read the magazine / that I bought yesterday / at the convenience store"
+(나는 잡지를 읽었다 / 그것은 어제 샀다 / 편의점에서) 
+~~~
+구를 구성하는 '전치사'(at, from, in, to 등), 절을 구성하는 '관계사'(that, where, which, who, whose 등)나 '접속사'(and, or, but, if, whether, when, because 등)에 유의해서 끊어 읽으면 됩니다.
+
+## 3. 스캐닝: 원하는 정보만 골라서 읽기
+ **문서 전체에서 본인이 원하는 정보만 골라 읽는 방법**입니다. 원하는 정보를 발견할 때까지 빠르게 대충 읽다가 원하는 정보가 나오는 부분을 발견하면 그때부터 자세히 읽습니.
+ 
+## 4. 스키밍: 요점만 파악하며 읽기
+ 문서 전체의 요점을 파악하며 읽는 것을 의미합니다. 스키밍을 하면 문서의 전체 내용을 빨리 파악할 수 있습니다. 예를 들어 뉴스 기사는 일반적으로 제목에 요점이 압축되어 있습니다. 또한 사양서나 메뉴얼도 목차에 있는 장이나 항목의 제목을 읽으면 요점을 쉽게 파악할 수 있습니다. 제목과 목차가 없다면 담화 표지(therefore, in summary)가 있으면 그 부분에 중요한 정보가 있다고 예상할 수 있습니다. 또한 '강조'(actually, especially)나 '다른 말로 바꾸기'(in other words, i.e)와 같은 담화 표지 뒤에 글쓴이의 주장이 기술되는 경우가 있습니다.
 
 ---
 [도서 링크](http://www.11st.co.kr/product/SellerProductDetail.tmall?method=getSellerProductDetail&prdNo=2682304048&catalog_no=21473196&lowest_yn=Y&trTypeCd=PW51&trCtgrNo=585021)
