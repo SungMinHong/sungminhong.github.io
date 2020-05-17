@@ -21,10 +21,13 @@ sitemap :
 ~~~
 "I have read the magazine that I bought yesterday at the convenience store"
 ~~~
-한국어 어순에 맞춰 뒤에서 부터 해석하기 시작하면 시간이 많이 걸립니다. 영어 어순 그대로 이해해야 합니다.
+한국어 어순에 맞춰 뒤에서 부터 해석하기 시작하면 시간이 많이 걸립니다. **영어 어순 그대로** 이해해야 합니다.
 아래와 같이 말이죠.
 ~~~
 '나는 잡지를 읽었다. 그것은 어제 샀다. 편의점에서' 
 ~~~
+## 2. 몇 개의 단어 단위로 의미를 파악하며 끊어 읽기
+영문을 읽을 때는 한 단어씩 해석하는 것보다 **몇 개의 단어로 묶어 의미를 파악**하면 빠르게 읽을 수 있습니다.
 
+---
 [도서 링크](http://www.11st.co.kr/product/SellerProductDetail.tmall?method=getSellerProductDetail&prdNo=2682304048&catalog_no=21473196&lowest_yn=Y&trTypeCd=PW51&trCtgrNo=585021)
