@@ -2,12 +2,29 @@
 title: "[IT 개발자의 영어 필사기] 영어 속독 테크닉"
 date: 2020-05-17 00:00:00
 lastmod : 2020-05-17 00:00:00
-categories: [JAVA]
-tags: [JAVA, Optional, Reflection]
+categories: [English]
+tags: [개발자, 영어, 속독]
 sitemap :
   changefreq : daily
   priority : 1.0
 ---
 
 최근들어 영어에 노출되는 빈도가 더 많아지는 것 같네요.. 원치 않더라도 영어 자료를 읽고 번역하거나 영어로 질문을 하는 상황을 겪게 되더라고요. :cry:
-비록 
+비록 영어울렁증이 있지만 어떻게든 극복해 내보려고 노력중입니다! 하지만 한정된 시간 동안 빠른 효율을 내야하기에 모든 영어를 공부할 것이 아니라 선택과 집중을 해야했습니다. 고민 결과 제가 선택한 결론은 관련 도서를 통해 "빠르게 배우고 꾸준히 연습하자!" 였습니다. 그래서 제가 선택한 도서는 "IT 개발자의 영어 필사기" 입니다. :smiley:
+![도서 표지](http://image.yes24.com/goods/85385648/800x0)
+<br/>
+포스팅에서는 이 책에 대해 서평을 쓰지는 않으려고 해요. 단순히 이 책을 읽고 중요하다고 생각한 부분을 노트형식으로 기록하려고 합니다. 서평이 필요하신 분들은 다른 분들의 서평을 봐주세요 :pray:
+
+# 영어 속독 테크닉
+테크닉: 영어 어순으로 이해하기, 끊어 읽기, 스캐닝, 스키핑
+## 1.영어 어순으로 이해하기
+~~~
+"I have read the magazine that I bought yesterday at the convenience store"
+~~~
+한국어 어순에 맞춰 뒤에서 부터 해석하기 시작하면 시간이 많이 걸립니다. 영어 어순 그대로 이해해야 합니다.
+아래와 같이 말이죠.
+~~~
+'나는 잡지를 읽었다. 그것은 어제 샀다. 편의점에서' 
+~~~
+
+[도서 링크](http://www.11st.co.kr/product/SellerProductDetail.tmall?method=getSellerProductDetail&prdNo=2682304048&catalog_no=21473196&lowest_yn=Y&trTypeCd=PW51&trCtgrNo=585021)
