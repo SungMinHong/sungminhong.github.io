@@ -111,7 +111,7 @@ class NonGenericListSampleTest {
 ## 2. JAVA 제네릭은 완전할까요?
 - 자바에 제네릭이 추가되면서 컴파일 시기때 타입 안정성을 얻을 수 있었습니다.
 - 이 덕분에 IDE에서도 타입이 맞지 않으면 빨간줄로 경고 해줄 수 있습니다.
-- 그렇다면 런타임 타입 안정성 또한 있을까요?
+- 혹자는 자바의 제네릭이 반쪽짜리 제네릭이라고 하기도 합니다. 그 이유는 자바의 런타임 타입 안정성과 관련이 있습니다 😲
 ### 2_1. JAVA와 C#의 제네릭 비교
 ![java_vs_c#](https://user-images.githubusercontent.com/18229419/84587561-30128b00-ae5b-11ea-8572-883c06e8bae0.png) <br/>
 출처: https://www.guru99.com/java-vs-c-sharp-key-difference.html
@@ -132,10 +132,46 @@ JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이�
 가장 낮은 단위로 어휘 항목들을 구분할 수 있는 분류 요소
 ~~~
 ![토큰이미지](https://user-images.githubusercontent.com/18229419/84657891-f0799b00-af4f-11ea-8c42-b6baab8c236a.png)
-### 3_2. 타입토큰이란?
- 자바언어 개발자였던 Neal Gafter는 JAVA JDK5에 generics를 추가할 때 java.lang.Class 가 generic type이 되도록 변경했다고 합니다. 예를들어, String.class의 Type이 Class<String> 되도록 한 것입니다. 또한 이를 명칭하기 위해 [Gilad Bracha](http://bracha.org/Site/Home.html)라는 분이 타입 토큰이라는 용어를 만들어 줬다고 합니다. 😮 토큰의 전산적 의미를 고려한다면 아마 이런 뜻이라고 유추해볼 수 있을 것 같습니다 ㅎㅎ 
+### 3_2. 타입 토큰의 정의
+ 자바언어 개발자였던 Neal Gafter는 JAVA JDK5에 generics를 추가할 때 java.lang.Class 가 generic type이 되도록 변경했다고 합니다. 예를들어, String.class의 Type이 Class<String> 되도록 한 것이라고 합니다. 또한 이를 명칭하기 위해 [Gilad Bracha](http://bracha.org/Site/Home.html)라는 분이 타입 토큰이라는 용어를 만들어 줬다고 합니다. 😮 토큰의 전산적 의미를 고려한다면 타입 토큰은 이런 뜻이라고 조심스레 유추해봅니다 ㅎㅎ
 ~~~
 "타입을 나타내는 최소한의 단위"
 ~~~
+  
 ### 3_3. 클래스 리터럴과 타입 토큰의 의미
+- 클래스 리터럴(Class Literal)은 String.class, Integer.class 등을 말합니다.
+- String.class의 타입은 Class<String>, Integer.class의 타입은 Class<Integer>입니다.
+- 타입 토큰(Type Token)은 타입을 나타내는 토큰입니다.
+- 클래스 리터럴은 타입 토큰으로서 사용된다.
+- 예시
+~~~ java
+  // 11st_method(Class<?> clazz) 와 같은 메서드는 타입 토큰을 인자로 받는 메서드입니다.
+  void 11st_method(Class<?> clazz) {
+    ...
+  }
+  
+  // 11st_method(String.class)로 호출하면,
+  // String.class라는 클래스 리터럴을 타입 토큰 파라미터로 11st_method에 전달합니다.
+  11st_method(String.class);
+~~~
+
+### 3_4. 타입토큰은 어디에 쓰이나?
+- 주로 타입 토큰은 타입 안전성이 필요한 곳에 사용됩니다.
+- 예시
+~~~java
+//ObjectMapper의 readValue 메서드 파라미터로 String 과 클래스 리터럴을 전달합니다.
+ProductDto productDto = objectMapper.readValue(jsonString, ProductDto.class);
+
+//전달된 클래스 리터럴인 ProductDto.class를 타입토큰인 Class<T> valueType로 받고 있습니다.
+public <T> T readValue(String content, Class<T> valueType){
+...
+}
+~~~
+
+
+---
+출처: 
+1. http://gafter.blogspot.com/2006/12/super-type-tokens.html
+2. https://homoefficio.github.io/2016/11/30/%ED%81%B4%EB%9E%98%EC%8A%A4-%EB%A6%AC%ED%84%B0%EB%9F%B4-%ED%83%80%EC%9E%85-%ED%86%A0%ED%81%B0-%EC%88%98%ED%8D%BC-%ED%83%80%EC%9E%85-%ED%86%A0%ED%81%B0/
+3. https://www.youtube.com/watch?v=01sdXvZSjcI
 
