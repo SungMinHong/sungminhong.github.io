@@ -170,7 +170,7 @@ JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이�
   ProductDto productDto = objectMapper.readValue(jsonString, ProductDto.class);
 
   //전달된 클래스 리터럴인 ProductDto.class를 타입토큰인 Class<T> valueType로 받고 있습니다.
-  public <T> T readValue(String content, Class<T> valueType){
+  public <T> T readValue(String content, Class<T> valueType) {
   ...
   }
   ~~~
