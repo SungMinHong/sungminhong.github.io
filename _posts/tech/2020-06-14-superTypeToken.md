@@ -133,5 +133,6 @@ JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이�
 ~~~
 ![토큰이미지](https://user-images.githubusercontent.com/18229419/84657891-f0799b00-af4f-11ea-8c42-b6baab8c236a.png)
 ### 3_2. 타입토큰이란?
- 타입 토큰(Type Token)은 쉽게 말해 타입을 나타내는 최소한의 단위입니다. JAVA JDK5에 generics를 추가할 때 Neal Gafter는 java.lang.Class 가 generic type이 되도록 바꿨습니다. , the type of String.class is now Class<String>. Gilad Bracha coined the term type tokens for this.
+ 타입 토큰(Type Token)은 쉽게 말해 "타입을 나타내는 최소한의 단위"입니다. 자바언어 개발자였던 Neal Gafter는 JAVA JDK5에 generics를 추가할 때 java.lang.Class 가 generic type이 되도록 변경했다고 합니다. 예를들어, String.class의 Type이 Class<String> 되도록 한 것입니다. 또한 이를 명칭하기 위해 [Gilad Bracha](http://bracha.org/Site/Home.html)라는 분이 타입 토큰이라는 용어를 만들어 줬다고 합니다. 😮
+  
 
