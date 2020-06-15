@@ -163,15 +163,15 @@ JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이�
 ### 3_4. 타입 토큰은 어디에 쓰이나요?
 - 주로 타입 토큰은 타입 안전성이 필요한 곳에 사용됩니다.
 - 예시
-~~~ java
-//ObjectMapper의 readValue 메서드 파라미터로 String 과 클래스 리터럴을 전달합니다.
-ProductDto productDto = objectMapper.readValue(jsonString, ProductDto.class);
+  ~~~ java
+  //ObjectMapper의 readValue 메서드 파라미터로 String 과 클래스 리터럴을 전달합니다.
+  ProductDto productDto = objectMapper.readValue(jsonString, ProductDto.class);
 
-//전달된 클래스 리터럴인 ProductDto.class를 타입토큰인 Class<T> valueType로 받고 있습니다.
-public <T> T readValue(String content, Class<T> valueType){
-...
-}
-~~~
+  //전달된 클래스 리터럴인 ProductDto.class를 타입토큰인 Class<T> valueType로 받고 있습니다.
+  public <T> T readValue(String content, Class<T> valueType){
+  ...
+  }
+  ~~~
 ### 3_5. 타입 토큰의 한계점은?
 - 사례로 THC(Typesafe Heterogenous Container) pattern을 들어 보겠습니다.
 
