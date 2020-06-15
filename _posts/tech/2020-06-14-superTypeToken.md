@@ -1,5 +1,5 @@
 ---
-title: "[Spring] 슈퍼타입토큰"
+title: "[Spring] 슈퍼 타입 토큰"
 date: 2020-06-14 00:00:00
 lastmod : 2020-06-14 00:00:00
 categories: [English]
@@ -20,8 +20,8 @@ sitemap :
     2. 왜 JAVA는 Type Erasure를 채택했나요?
     3. Type Erasure
 3. 타입토큰(Type Token) 이란?
-4. 자바의 제네릭 구현 때문에 런타임때 타입토큰을 알 수 없다. 그러면 방법이 없나요?
-    1. 슈퍼타입토큰(Super Type Token) 을 이용하면 해결할 수 있어요!
+4. 런타임때 타입토큰을 알 수 없다. 그러면 방법이 없나요?
+    1. 슈퍼 타입 토큰(Super Type Token) 을 이용하면 해결할 수 있어요!
 5. 하지만 구현이 너무 복잡하네요.. 더 쉬운 방법은 없을까요?
     1. 스프링에서 제공하는 슈퍼타입토큰을 사용해봅시다
 6. Spring 슈퍼타입토큰은 주로 어디에서 활용 가능할까요?
@@ -112,18 +112,22 @@ class NonGenericListSampleTest {
 - 자바에 제네릭이 추가되면서 컴파일 시기때 타입 안정성을 얻을 수 있었습니다.
 - 이 덕분에 IDE에서도 타입이 맞지 않으면 빨간줄로 경고 해줄 수 있습니다.
 - 혹자는 자바의 제네릭이 반쪽짜리 제네릭이라고 하기도 합니다. 그 이유는 자바의 런타임 타입 안정성과 관련이 있습니다 😲
+
 ### 2_1. JAVA와 C#의 제네릭 비교
 ![java_vs_c#](https://user-images.githubusercontent.com/18229419/84587561-30128b00-ae5b-11ea-8572-883c06e8bae0.png) <br/>
 출처: https://www.guru99.com/java-vs-c-sharp-key-difference.html
 -  C#은 런타임 타입 안정성이 있습니다. 반면에 JAVA의 제네릭은 런타임 타입 안정성이 없습니다. 컴파일 과정에서 Type Erasure 과정을 통해 타입 파라미터를 전부 지웠기 때문입니다.
+
 ### 2_2. 왜 JAVA는 Type Erasure를 채택했나요?
 제네릭을 도입할 당시 JAVA와 C#은 보급률에 큰 차이가 있었습니다. JAVA로 구현된 현업 프로젝트가 월등히 많았던 것입니다. 
 JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이를 꼭 지키고자 했습니다. 
 때문에 자바 진영은 컴파일 과정에서 Type Erasure 과정을 통해 타입 파라미터를 전부 지워주고 제네릭이 없던 하위 버전과 동일한 형태로 class 파일을 생성합니다.
 반면 C#은 당시 보급률이 현저히 낮았기 때문에 하위 호완성을 포기하고 컴파일, 런타임 시기에 모두 완전한 제네릭을 적용했습니다.
+
 ### 2_3. Type Erasure
 - 아래 그림과 같이 컴파일 과정에서 타입을 소거하고 Object로 만듭니다.
 ![type_erasure](https://image.slidesharecdn.com/matoringenerics-160622172122/95/tricky-java-generics-17-638.jpg?cb=1466616158)
+
 
 ## 3. 타입토큰(Type Token) 이란 무엇일까요?
 ### 3_1. 토큰이란?
@@ -132,6 +136,7 @@ JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이�
 가장 낮은 단위로 어휘 항목들을 구분할 수 있는 분류 요소
 ~~~
 ![토큰이미지](https://user-images.githubusercontent.com/18229419/84657891-f0799b00-af4f-11ea-8c42-b6baab8c236a.png)
+
 ### 3_2. 타입 토큰의 정의를 해보자면..
  자바언어 개발자였던 Neal Gafter는 JAVA JDK5에 generics를 추가할 때 java.lang.Class 가 generic type이 되도록 변경했다고 합니다. 예를들어, String.class의 Type이 Class<String> 되도록 한 것이라고 합니다. 또한 이를 명칭하기 위해 [Gilad Bracha](http://bracha.org/Site/Home.html)라는 분이 타입 토큰이라는 용어를 만들어 줬다고 합니다. 😮 토큰의 전산적 의미를 고려한다면 타입 토큰은 이런 뜻이라고 조심스레 유추해봅니다 ㅎㅎ
 ~~~
@@ -155,7 +160,7 @@ JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이�
   11st_method(String.class);
   ~~~
 
-### 3_4. 타입토큰은 어디에 쓰이나요?
+### 3_4. 타입 토큰은 어디에 쓰이나요?
 - 주로 타입 토큰은 타입 안전성이 필요한 곳에 사용됩니다.
 - 예시
 ~~~ java
@@ -167,8 +172,11 @@ public <T> T readValue(String content, Class<T> valueType){
 ...
 }
 ~~~
+### 3_5. 타입 토큰의 한계점은?
+- 사례로 THC(Typesafe Heterogenous Container) pattern을 들어 보겠습니다.
 
-
+## 4. 해결책은?
+### 4_1. 슈퍼 타입 토큰(Super Type Token)
 ---
 출처: 
 1. http://gafter.blogspot.com/2006/12/super-type-tokens.html
