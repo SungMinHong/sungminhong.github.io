@@ -125,20 +125,20 @@ JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이�
 - 아래 그림과 같이 컴파일 과정에서 타입을 소거하고 Object로 만듭니다.
 ![type_erasure](https://image.slidesharecdn.com/matoringenerics-160622172122/95/tricky-java-generics-17-638.jpg?cb=1466616158)
 
-## 3. 타입토큰(Type Token) 이란?
+## 3. 타입토큰(Type Token) 이란 무엇일까요?
 ### 3_1. 토큰이란?
 일반적으로 토큰은 버스 요금 등에 사용하기 위하여 회사에서 발행한 동전 모양의 주조물을 의미합니다. 전산 분야에서는 다음과 같이 정의하고 있습니다.
 ~~~
 가장 낮은 단위로 어휘 항목들을 구분할 수 있는 분류 요소
 ~~~
 ![토큰이미지](https://user-images.githubusercontent.com/18229419/84657891-f0799b00-af4f-11ea-8c42-b6baab8c236a.png)
-### 3_2. 타입 토큰의 정의
+### 3_2. 타입 토큰의 정의를 해보자면..
  자바언어 개발자였던 Neal Gafter는 JAVA JDK5에 generics를 추가할 때 java.lang.Class 가 generic type이 되도록 변경했다고 합니다. 예를들어, String.class의 Type이 Class<String> 되도록 한 것이라고 합니다. 또한 이를 명칭하기 위해 [Gilad Bracha](http://bracha.org/Site/Home.html)라는 분이 타입 토큰이라는 용어를 만들어 줬다고 합니다. 😮 토큰의 전산적 의미를 고려한다면 타입 토큰은 이런 뜻이라고 조심스레 유추해봅니다 ㅎㅎ
 ~~~
 "타입을 나타내는 최소한의 단위"
 ~~~
   
-### 3_3. 클래스 리터럴과 타입 토큰의 의미
+### 3_3. 클래스 리터럴과 타입 토큰의 의미는..?
 - 클래스 리터럴(Class Literal)은 String.class, Integer.class 등을 말합니다.
 - String.class의 타입은 Class<String>, Integer.class의 타입은 Class<Integer>입니다.
 - 타입 토큰(Type Token)은 타입을 나타내는 토큰입니다.
@@ -155,7 +155,7 @@ JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이�
   11st_method(String.class);
 ~~~
 
-### 3_4. 타입토큰은 어디에 쓰이나?
+### 3_4. 타입토큰은 어디에 쓰이나요?
 - 주로 타입 토큰은 타입 안전성이 필요한 곳에 사용됩니다.
 - 예시
 ~~~java
