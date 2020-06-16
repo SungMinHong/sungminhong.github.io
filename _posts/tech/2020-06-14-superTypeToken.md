@@ -31,11 +31,14 @@ sitemap :
 - 클래스에서 사용할 타입을 외부에서 정하는 것을 의미합니다.
 - 선언시 클래스 또는 인터페이스에 '< >' 기호를 쓰고 그안에 타입을 넣으면 됩니다.
 - 제네릭을 사용함으로써 Object형을 강제 형변환할 필요가 줄어들었습니다.
+
 ~~~ java 
 // 사용 예시
 List<String> stringList = new ArrayList<>();
 ~~~
+
 - 제네릭을 사용 유무에 따른 테스트
+
 ~~~ java
 public class GenericListSample {
     public List<String> list = new ArrayList<>();
