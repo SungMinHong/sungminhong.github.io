@@ -1,5 +1,5 @@
 ---
-title: "[Spring] 슈퍼 타입 토큰"
+title: "[Spring] 수퍼 타입 토큰"
 date: 2020-06-14 00:00:00
 lastmod : 2020-06-14 00:00:00
 categories: [English]
@@ -21,7 +21,7 @@ sitemap :
     3. Type Erasure
 3. 타입토큰(Type Token) 이란?
 4. 런타임때 타입토큰을 알 수 없다. 그러면 방법이 없나요?
-    1. 슈퍼 타입 토큰(Super Type Token) 을 이용하면 해결할 수 있어요!
+    1. 수퍼 타입 토큰(Super Type Token) 을 이용하면 해결할 수 있어요!
 5. 하지만 구현이 너무 복잡하네요.. 더 쉬운 방법은 없을까요?
     1. 스프링에서 제공하는 슈퍼타입토큰을 사용해봅시다
 6. Spring 슈퍼타입토큰은 주로 어디에서 활용 가능할까요?
