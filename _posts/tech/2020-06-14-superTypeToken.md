@@ -227,10 +227,10 @@ public class SimpleTypeSafeMap {
         assertTrue(v2.get(0) instanceof String);
     }
 ~~~
-- 이런 한계를 극복할 수 있는 해결책이 바로 슈퍼 타입 토큰 입니다. 😁
+- 이런 한계를 극복할 수 있는 해결책이 바로 수퍼 타입 토큰 입니다. 😁
 
 
-## 4. 슈퍼 타입 토큰(Super Type Token)
+## 4. 수퍼 타입 토큰(Super Type Token)
 ---
 출처: 
 1. http://gafter.blogspot.com/2006/12/super-type-tokens.html
