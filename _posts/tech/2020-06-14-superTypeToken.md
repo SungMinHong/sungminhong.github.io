@@ -179,9 +179,58 @@ JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이�
   ~~~
 ### 3_5. 타입 토큰의 한계점은?
 - 사례로 THC(Typesafe Heterogenous Container) pattern을 들어 보겠습니다.
+- 위 패턴이 적용된 SimpleTypeSafeMap을 만들어 보겠습니다.
 
-## 4. 해결책은?
-### 4_1. 슈퍼 타입 토큰(Super Type Token)
+~~~ java
+public class SimpleTypeSafeMap {
+    private Map<Class<?>, Object> map = new HashMap<>();
+
+    public <T> void put(Class<T> k, T v) {
+        map.put(k, v);
+    }
+
+    public <T> T get(Class<T> clazz) {
+        return clazz.cast(map.get(clazz));
+    }
+}
+~~~
+
+- 타입 토큰을 이용해서 별도의 캐스팅 없이도 타입 안전성이 확보가능해졌습니다.
+
+~~~ java
+    @Test
+    public void type_token을_이용한_put_get_테스트() {
+        simpleTypeSafeMap.put(String.class, "11st_문자열");
+        simpleTypeSafeMap.put(Integer.class, 11);
+
+        //타입 토큰을 이용해서 별도의 캐스팅 없이도 타입 안전성이 확보가능합니다.
+        String v1 = simpleTypeSafeMap.get(String.class);
+        Integer v2 = simpleTypeSafeMap.get(Integer.class);
+
+        assertTrue(v1 instanceof String);
+        assertTrue(v2 instanceof Integer);
+    }
+~~~
+
+- 하지만 List<String>.class와 같은 형식의 타입 토큰을 사용할 수 없다는 한계를 가지고 있습니다.
+  
+~~~ java
+    @Test
+    public void type_token_한계() {
+        simpleTypeSafeMap.put(List.class, Arrays.asList(1,2,3));
+        simpleTypeSafeMap.put(List.class, Arrays.asList("1", "2", "3"));
+
+        List<Integer> v1 = (List<Integer>)simpleTypeSafeMap.get(List.class);
+        List<String> v2 = (List<String>)simpleTypeSafeMap.get(List.class);
+
+        assertFalse(v1.get(0) instanceof Integer);
+        assertTrue(v2.get(0) instanceof String);
+    }
+~~~
+- 이런 한계를 극복할 수 있는 해결책이 바로 슈퍼 타입 토큰 입니다. 😁
+
+
+## 4. 슈퍼 타입 토큰(Super Type Token)
 ---
 출처: 
 1. http://gafter.blogspot.com/2006/12/super-type-tokens.html
