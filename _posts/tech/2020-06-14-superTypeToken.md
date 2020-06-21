@@ -232,21 +232,88 @@ public class SimpleTypeSafeMap {
 
 ## 4. 수퍼 타입 토큰(Super Type Token)
 ### 4_1. 수퍼 타입 토큰이란?
-- 타입 토큰계의 슈퍼맨? 슈퍼급의 타입 토큰을 의미할까요?
+- 타입 토큰계의 슈퍼맨?
 </br>
 
 ![슈퍼맨](https://user-images.githubusercontent.com/18229419/85222296-0de9b180-b3f5-11ea-8bcf-635bc5516c45.png)
+
 - 수퍼 타입 토큰은 Neal Gafter라는 사람이 처음 고안한 방법으로 알려져 있습니다. 수퍼급의 타입 토큰이 아니라, 수퍼 타입을 토큰으로 사용한다는 의미입니다.
 
 <br/>
 
-&nbsp; 수퍼 타입 토큰은 상속과 Reflection을 기발하게 조합해서 List<String>.class 같이, 원래는 사용할 수 없었던 클래스 리터럴을 타입 토큰으로 사용하는 것과 같은 효과를 낼 수 있습니다.
-<br/>
+- 수퍼 타입 토큰은 상속과 Reflection을 기발하게 조합해서 아래 같이, 원래는 사용할 수 없었던 클래스 리터럴을 타입 토큰으로 사용하는 것과 같은 효과를 낼 수 있습니다.
+
+~~~ java
+  List<String>.class
+~~~
   
-List<String>.class도 타입을 구할 수만 있다면 타입 안전성을 확보할 수 있습니다. 하지만, Class<String>와는 달리 Class<List<String>>라는 타입은 List<String>.class 같은 클래스 리터럴로 쉽게 구할 수 없습니다.
-  
-  
-  
+- 타입을 구할 수만 있다면 타입 안전성을 확보할 수 있습니다. 하지만, Class<String>와는 달리 Class<List<String>>라는 타입은 위와 같은 클래스 리터럴로 쉽게 구할 수 없습니다.
+
+### 4_2. Class.getGenericSuperclass()
+- 쉽게 구할 수 없지만 그래도 방법이 있습니다. [Class.getGenericSuperclass() API 문서](https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getGenericSuperclass--)를 보면 아래 정보를 알 수 있습니다.
+~~~ java
+// Class.class 내 getGenericSuperclass 메서드
+  /*
+  * 상위의 수퍼 클래스의 타입을 반환하며,
+  * 상위의 수퍼 클래스가 ParameterizedType이면, 실제 타입 파라미터들을 반영한 타입을 반환해야 한다.
+  * ParameterizedType에 대해서는 별도 문서를 참고하라.  
+  */
+   public Type getGenericSuperclass() {
+        ClassRepository info = this.getGenericInfo();
+        if (info == null) {
+            return this.getSuperclass();
+        } else {
+            return this.isInterface() ? null : info.getSuperclass();
+        }
+    }
+~~~
+
+- getGenericSuperclass()를 이용해 출력해보기
+~~~java
+    @Test
+    public void getGenericSuperclass_반환형인_Type_출력() {
+        class Super<T> {}
+        class MyClass extends Super<List<String>> {}  // 수퍼 클래스에 사용되는 파라미터 타입을 이용한다. 그래서 수퍼 타입 토큰.
+
+        MyClass myClass = new MyClass();
+
+        // 파라미터 타입 정보가 포함된 수퍼 클래스의 타입 정보를 구한다.
+        Type typeOfGenericSuperclass = myClass.getClass().getGenericSuperclass();
+
+        // ~~~$1Super<java.util.List<java.lang.String>> 출력됨
+        System.out.println(typeOfGenericSuperclass);
+    }
+~~~
+
+### 4_3 ParameterizedType.getActualTypeArguments()
+- 위에 getGenericSuperclass()의 docs 설명을 보면, 수퍼 클래스가 ParameterizedType이면 타입 파라미터를 포함한 정보를 반환해야 한다고 했으며, ParameterizedType은 별도의 문서를 확인하라고 했습니다.
+
+- [ParameterizedType의 API 문서](https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/ParameterizedType.html) 를 보면 Type[] getActualTypeArgumensts()라는 메서드가 있음을 확인할 수 있습니다. 
+
+- getActualTypeArguments()를 이용해 출력해보기
+~~~ java
+@Test
+    public void getActualTypeArguments_Type_출력() {
+        class Super<T> {}
+        class MyClass extends Super<List<String>> {}  // 수퍼 클래스에 사용되는 파라미터 타입을 이용한다. 그래서 수퍼 타입 토큰.
+
+        MyClass myClass = new MyClass();
+
+        // 파라미터 타입 정보가 포함된 수퍼 클래스의 타입 정보를 구한다.
+        Type typeOfGenericSuperclass = myClass.getClass().getGenericSuperclass();
+
+        // ~~~$1Super<java.util.List<java.lang.String>> 출력됨
+        System.out.println(typeOfGenericSuperclass);
+
+        // 수퍼 클래스가 ParameterizedType 이므로 ParameterizedType으로 캐스팅 가능
+        // ParameterizedType의 getActualTypeArguments()으로 실제 타입 파라미터의 정보를 구함
+        Type actualType = ((ParameterizedType) typeOfGenericSuperclass).getActualTypeArguments()[0];
+
+        // 원했던 정보였던 java.util.List<java.lang.String>가 출력됨
+        System.out.println(actualType);
+    }
+~~~
+
 ---
 출처: 
 1. http://gafter.blogspot.com/2006/12/super-type-tokens.html
