@@ -231,6 +231,20 @@ public class SimpleTypeSafeMap {
 
 
 ## 4. 수퍼 타입 토큰(Super Type Token)
+### 4_1. 수퍼 타입 토큰이란?
+- 타입 토큰계의 슈퍼맨? 슈퍼급의 타입 토큰을 의미할까요? </br>
+![슈퍼맨](https://user-images.githubusercontent.com/18229419/85222296-0de9b180-b3f5-11ea-8bcf-635bc5516c45.png)
+- 수퍼 타입 토큰은 Neal Gafter라는 사람이 처음 고안한 방법으로 알려져 있습니다. 수퍼급의 타입 토큰이 아니라, 수퍼 타입을 토큰으로 사용한다는 의미입니다.
+
+<br/>
+
+&nbsp; 수퍼 타입 토큰은 상속과 Reflection을 기발하게 조합해서 List<String>.class 같이, 원래는 사용할 수 없었던 클래스 리터럴을 타입 토큰으로 사용하는 것과 같은 효과를 낼 수 있습니다.
+<br/>
+  
+List<String>.class도 타입을 구할 수만 있다면 타입 안전성을 확보할 수 있습니다. 하지만, Class<String>와는 달리 Class<List<String>>라는 타입은 List<String>.class 같은 클래스 리터럴로 쉽게 구할 수 없습니다.
+  
+  
+  
 ---
 출처: 
 1. http://gafter.blogspot.com/2006/12/super-type-tokens.html
