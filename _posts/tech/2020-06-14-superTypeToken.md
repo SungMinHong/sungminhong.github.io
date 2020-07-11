@@ -484,7 +484,6 @@ class TypeSafeMapTest {
 - Spring 프레임워크에서도 동일하게 런타임시 발생하는 타입 안정성 문제를 해결하기 위해 ParameterizedTypeReference라는 클래스를 만들었습니다.
 - Spring core 패키지에 있는 ParameterizedTypeReference는 아래와 같습니다.
 
-<br/>
 ~~~ java
 /**
  * The purpose of this class is to enable capturing and passing a generic
