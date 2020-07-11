@@ -1,7 +1,7 @@
 ---
 title: "[Spring] 수퍼 타입 토큰"
 date: 2020-06-14 00:00:00
-lastmod : 2020-06-14 00:00:00
+lastmod : 2020-07-12 00:00:00
 categories: [Spring]
 tags: [Spring, 자바, 타입토큰, 수퍼타입토큰]
 sitemap :
@@ -164,9 +164,9 @@ JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이�
   
 ### 3_3. 클래스 리터럴과 타입 토큰의 의미는?
 - 클래스 리터럴(Class Literal)은 String.class, Integer.class 등을 말합니다.
-- String.class의 타입은 Class<String>, Integer.class의 타입은 Class<Integer>입니다.
+- String.class의 타입은 "Class<String>", Integer.class의 타입은 "Class<Integer>"입니다.
 - 타입 토큰(Type Token)은 타입을 나타내는 토큰입니다.
-- 클래스 리터럴은 타입 토큰으로서 사용된다.
+- 클래스 리터럴은 타입 토큰으로서 사용됩니다.
 - 예시
   ~~~ java
   // 11st_method(Class<?> clazz) 와 같은 메서드는 타입 토큰을 인자로 받는 메서드입니다.
@@ -729,7 +729,7 @@ public class ParameterizedTypeReferenceUsageTest {
 }
 ~~~
 
-### 6_2. feign에서는 사용하지 않아요~
+### 6_2. feign에서는 사용하지 않아요~!
 - 사내에서 Spring Cloud를 사용하고 있고 선언적으로 작성할 수 있는 clinet인 feign을 사용하고 있습니다.
 - 혹시나 feign에서도 수퍼 타입 토큰을 사용하는지 알아보게 됐습니다.
 - 인터페이스를 통해 정의되는 feign도 역시 데이터를 decode하기 위해 jackson을 사용하고 있습니다.
