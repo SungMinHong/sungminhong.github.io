@@ -3,7 +3,7 @@ title: "[Spring] 수퍼 타입 토큰"
 date: 2020-06-14 00:00:00
 lastmod : 2020-06-14 00:00:00
 categories: [English]
-tags: [Spring, 자바, 타입토큰, 슈퍼타입토큰]
+tags: [Spring, 자바, 타입토큰, 수퍼타입토큰]
 sitemap :
   changefreq : daily
   priority : 1.0
