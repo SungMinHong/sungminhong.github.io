@@ -157,14 +157,14 @@ JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이�
 ~~~
 
 ### 3_2. 타입 토큰을 정의한다면?
- 자바언어 개발자였던 Neal Gafter는 JAVA JDK5에 generics를 추가할 때 java.lang.Class 가 generic type이 되도록 변경했다고 합니다. 예를들어, String.class의 Type이 Class<String> 되도록 한 것이라고 합니다. 또한 이를 명칭하기 위해 [Gilad Bracha](http://bracha.org/Site/Home.html)라는 분이 타입 토큰이라는 용어를 만들어 줬다고 합니다. 😮 토큰의 전산적 의미를 고려한다면 타입 토큰은 이런 뜻이라고 조심스레 유추해봅니다 ㅎㅎ
+ 자바언어 개발자였던 Neal Gafter는 JAVA JDK5에 generics를 추가할 때 java.lang.Class 가 generic type이 되도록 변경했다고 합니다. 예를들어, String.class의 Type이 Class&lt;String&gt; 되도록 한 것이라고 합니다. 또한 이를 명칭하기 위해 [Gilad Bracha](http://bracha.org/Site/Home.html)라는 분이 타입 토큰이라는 용어를 만들어 줬다고 합니다. 😮 토큰의 전산적 의미를 고려한다면 타입 토큰은 이런 뜻이라고 조심스레 유추해봅니다 ㅎㅎ
 ~~~
-"타입을 나타내는 최소한의 단위"
+타입을 나타내는 최소한의 단위"
 ~~~
-  
+
 ### 3_3. 클래스 리터럴과 타입 토큰의 의미는?
 - 클래스 리터럴(Class Literal)은 String.class, Integer.class 등을 말합니다.
-- String.class의 타입은 "Class<String>", Integer.class의 타입은 "Class<Integer>"입니다.
+- String.class의 타입은 Class&lt;String&gt;, Integer.class의 타입은 Class&lt;Integer&gt;입니다.
 - 타입 토큰(Type Token)은 타입을 나타내는 토큰입니다.
 - 클래스 리터럴은 타입 토큰으로서 사용됩니다.
 - 예시
@@ -758,7 +758,8 @@ Object decode(Response response, Type type) throws IOException {
 
 ---
 출처: 
-1. http://gafter.blogspot.com/2006/12/super-type-tokens.html
-2. https://homoefficio.github.io/2016/11/30/%ED%81%B4%EB%9E%98%EC%8A%A4-%EB%A6%AC%ED%84%B0%EB%9F%B4-%ED%83%80%EC%9E%85-%ED%86%A0%ED%81%B0-%EC%88%98%ED%8D%BC-%ED%83%80%EC%9E%85-%ED%86%A0%ED%81%B0/
-3. https://www.youtube.com/watch?v=01sdXvZSjcI
+1. [Neal Gafter's blog](http://gafter.blogspot.com/2006/12/super-type-tokens.html)
+2. [HomoEfficio. 클래스 리터럴, 타입 토큰, 수퍼 타입 토큰](https://homoefficio.github.io/2016/11/30/%ED%81%B4%EB%9E%98%EC%8A%A4-%EB%A6%AC%ED%84%B0%EB%9F%B4-%ED%83%80%EC%9E%85-%ED%86%A0%ED%81%B0-%EC%88%98%ED%8D%BC-%ED%83%80%EC%9E%85-%ED%86%A0%ED%81%B0/)
+3. [토비의 봄 TV - 수퍼 타입 토큰](https://www.youtube.com/watch?v=01sdXvZSjcI)
+4. [토비의 봄 TV - 수퍼 타입 토큰(2), 스프링 ResolvableType](https://www.youtube.com/watch?v=y_uGSqpE4So)
 
