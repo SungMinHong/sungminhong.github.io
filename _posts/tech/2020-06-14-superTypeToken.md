@@ -318,6 +318,7 @@ public class SimpleTypeSafeMap {
 ### 4_4. super type token을 이용한 TypeSafeMap 
 - TypeSafe한 Map을 만들기 위해 Type 정보를 저장할 TypeReference를 만듭니다. TypeSafeMap을 만들어 TypeReference가 가지고 있는 Type을 이용합니다.
 - TypeReference
+
 ~~~ java
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -341,6 +342,7 @@ public abstract class TypeReference<T> {
 ~~~
 
 - TypeSafeMap
+
 ~~~ java
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -368,6 +370,7 @@ public class TypeSafeMap {
 ~~~
 
 - 자료형별 put과 get을 테스트하는 코드 작성
+
 ~~~ java
 import java.util.Arrays;
 import java.util.HashMap;
