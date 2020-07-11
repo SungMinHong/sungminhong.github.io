@@ -37,6 +37,9 @@ sitemap :
 	1. Spring의 ParameterizedTypeReference를 사용해주세요! 👏
 6. 그렇다면 수퍼 타입 토큰은 주로 어디에 사용할 수 있을까요? 🤔
 
+<br/>
+
+---
 # 본론 🧐
 ## 1. JAVA 제네릭(Generic)은 뭐죠?
 - 클래스에서 사용할 타입을 외부에서 정하는 것을 의미합니다.
