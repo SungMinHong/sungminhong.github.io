@@ -315,6 +315,157 @@ public class SimpleTypeSafeMap {
     }
 ~~~
 
+### 4_4. super type token을 이용한 TypeSafeMap 
+- TypeSafe한 Map을 만들기 위해 Type 정보를 저장할 TypeReference를 만듭니다. TypeSafeMap을 만들어 TypeReference가 가지고 있는 Type을 이용합니다.
+- TypeReference
+~~~ java
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
+public abstract class TypeReference<T> {
+    private final Type type;
+
+    protected TypeReference() {
+        Type superClassType = getClass().getGenericSuperclass();
+        if (superClassType instanceof ParameterizedType) {
+            this.type = ((ParameterizedType)superClassType).getActualTypeArguments()[0];
+        } else {
+            throw new IllegalArgumentException("TypeReference는 항상 실제 타입 파라미터 정보가 있어야 합니다.");
+        }
+    }
+
+    public Type getType() {
+        return type;
+    }
+}
+~~~
+
+- TypeSafeMap
+~~~ java
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
+
+public class TypeSafeMap {
+    private final Map<Type, Object> map = new HashMap<>();  // key로 Type을 사용
+
+    public <T> void put(TypeReference<T> k, T v) {
+        map.put(k.getType(), v);
+    }
+
+    public <T> T get(TypeReference<T> k) {
+        final Type type = k.getType();
+        final Class<T> clazz;
+        if (type instanceof ParameterizedType) {
+            clazz = (Class<T>) ((ParameterizedType) type).getRawType();
+        } else {
+            clazz = (Class<T>) type;
+        }
+        return clazz.cast(map.get(type));
+    }
+}
+~~~
+
+- 자료형별 put과 get을 테스트하는 코드 작성
+~~~
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+
+import main.super_type_token.TypeReference;
+import main.super_type_token.TypeSafeMap;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class TypeSafeMapTest {
+    private final TypeSafeMap typeSafeMap = new TypeSafeMap();
+
+    @Test
+    public void put_and_get_test_using_string() {
+        final String inputData = "문자열";
+        final TypeReference<String> tr= new TypeReference<>() {};
+
+        // put
+        typeSafeMap.put(tr, inputData);
+        // get
+        final String outputData = typeSafeMap.get(tr);
+
+        System.out.println("input: " + inputData + "\n" +  "output: " +outputData);
+        assertEquals(inputData, outputData);
+    }
+
+    @Test
+    public void put_and_get_test_using_integer() {
+        final Integer inputData = 12345;
+        final TypeReference<Integer> tr= new TypeReference<>() {};
+
+        // put
+        typeSafeMap.put(tr, inputData);
+        // get
+        final Integer outputData = typeSafeMap.get(tr);
+
+        System.out.println("input: " + inputData + "\n" +  "output: " +outputData);
+        assertEquals(inputData, outputData);
+    }
+
+    @Test
+    public void put_and_get_test_using_list_string() {
+        final List<String> inputData = Arrays.asList("H", "O", "N", "G");
+        // List<String>.class와 동일한 효과
+        final TypeReference<List<String>> tr= new TypeReference<>() {};
+
+        // put
+        typeSafeMap.put(tr, inputData);
+        // get
+        final List<String> outputData = typeSafeMap.get(tr);
+
+        System.out.println("input: " + inputData + "\n" +  "output: " +outputData);
+        assertEquals(inputData, outputData);
+    }
+
+    @Test
+    public void put_and_get_test_using_list_list_string() {
+        final List<List<String>> inputData = Arrays.asList(
+            Arrays.asList("H", "O", "N", "G"),
+            Arrays.asList("S", "U", "N", "G"),
+            Arrays.asList("M", "I", "N")
+        );
+        // List<List<String>>.class와 동일한 효과
+        final TypeReference<List<List<String>>> tr= new TypeReference<>() {};
+
+        // put
+        typeSafeMap.put(tr, inputData);
+        // get
+        final List<List<String>> outputData = typeSafeMap.get(tr);
+
+        System.out.println("input: " + inputData + "\n" +  "output: " +outputData);
+        assertEquals(inputData, outputData);
+    }
+
+    @Test
+    public void put_and_get_test_using_map() {
+        final Map<String, String> inputData = new HashMap<>();
+        inputData.put("key1", "value1");
+        inputData.put("key2", "value2");
+        inputData.put("key3", "value3");
+        // Map<String, String>.class와 동일한 효과
+        final TypeReference<Map<String, String>> tr= new TypeReference<>() {};
+
+        // put
+        typeSafeMap.put(tr, inputData);
+        // get
+        final Map<String, String> outputData = typeSafeMap.get(tr);
+
+        System.out.println("input: " + inputData + "\n" +  "output: " +outputData);
+        assertEquals(inputData, outputData);
+    }
+}
+~~~
+
 ---
 출처: 
 1. http://gafter.blogspot.com/2006/12/super-type-tokens.html
