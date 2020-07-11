@@ -674,6 +674,7 @@ public class DemoApplication {
 ~~~
 
 - 테스트 코드를 작성합니다.
+- 테스트 코드에서는 ParameterizedTypeReference를 익명클래스로 계속 만들어 사용중 이지만 실제로 사용하신다면 static하게 한번만 만들고 재사용함 함으로써 성능을 향상시키면 좋을것 같습니다~!👻
 
 ~~~ java
 import java.util.LinkedHashMap;
