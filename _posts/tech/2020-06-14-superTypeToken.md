@@ -482,7 +482,7 @@ class TypeSafeMapTest {
 ### 5_1. Spring의 ParameterizedTypeReference를 사용해주세요! 👏
 - TypeReference을 만들기 보다 Spring 횽님의 ParameterizedTypeReference를 사용해 보아요!
 - Spring 프레임워크에서도 동일하게 런타임시 발생하는 타입 안정성 문제를 해결하기 위해 ParameterizedTypeReference라는 클래스를 만들었습니다.
-- Spring core 패키지에 있는 ParameterizedTypeReference는 아래와 같습니다.
+- Spring core 패키지에 있는 [ParameterizedTypeReference](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/ParameterizedTypeReference.html)는 아래와 같습니다.
 
 ~~~ java
 /**
