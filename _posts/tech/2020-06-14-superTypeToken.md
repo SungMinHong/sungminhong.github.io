@@ -368,7 +368,7 @@ public class TypeSafeMap {
 ~~~
 
 - 자료형별 put과 get을 테스트하는 코드 작성
-~~~
+~~~ java
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
