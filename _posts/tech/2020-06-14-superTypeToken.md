@@ -582,7 +582,151 @@ public abstract class ParameterizedTypeReference<T> {
 ~~~
 
 ## 6. 그렇다면 수퍼 타입 토큰은 주로 어디에 사용할 수 있을까요? 🤔
+### 6_1. RestTemplate
+- 다른 서버에 있는 자원을 가져오고 싶을 때 Client 라이브러리를 이용하는데요.
+- 그 중에서 RestTemplate를 예를 들고 슈퍼 타입 토큰을 이용해 타입 안정성을 확보해보겠습니다.
+- 우선 API 2개를 만들고 테스트 코드를 통해 검증해 보겠습니다. 시이작!
 
+~~~ java
+import java.util.List;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+public class DemoApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+
+    @RestController
+    public static class MyController {
+        @GetMapping("/users")
+        public List<User> getUsers() {
+            return List.of(new User("HONG", 10), new User("SUNG", 11), new User("MIN", 12));
+        }
+
+        @GetMapping("/products")
+        public List<Product> getProducts() {
+            return List.of(new Product("우유", 1000L), new Product("과자", 2000L), new Product("아이스크림", 3000L));
+        }
+    }
+
+    public static class User {
+        private String name;
+        private int age;
+
+        private User() { }
+
+        public User(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        @Override
+        public String toString() {
+            return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+        }
+    }
+
+    public static class Product {
+        private String name;
+        private long price;
+
+        private Product() {
+        }
+
+        public Product(String name, long price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public long getPrice() {
+            return price;
+        }
+
+        @Override
+        public String toString() {
+            return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+        }
+    }
+}
+~~~
+
+- 테스트 코드를 작성합니다.
+
+~~~ java
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.client.RestTemplate;
+
+import static com.example.demo.DemoApplication.*;
+
+public class ParameterizedTypeReferenceUsageTest {
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final static String USER_URI = "http://localhost:8080/users";
+    private final static String PRODUCT_URI = "http://localhost:8080/products";
+
+    @Test
+    public void 슈퍼타입토큰X_user_api_호출해서_사용한_경우() {
+        List<User> users = restTemplate.getForObject(USER_URI, List.class);
+        final Object first = users.get(0);
+
+        //User에 대한 타입토큰을 알 수 없어서 키벨류 형식을 변환할 수 있는 디폴트 자료형인 LinkedHashMap으로 변환을 했기 때문입니다.
+        Assert.assertFalse(first instanceof User);
+        Assert.assertTrue(first instanceof LinkedHashMap);
+    }
+
+    @Test
+    public void 슈퍼타입토큰X__product_api_호출해서_사용한_경우() {
+        List<User> users = restTemplate.getForObject(PRODUCT_URI, List.class);
+        final Object first = users.get(0);
+
+        //User에 대한 타입토큰을 알 수 없어서 키벨류 형식을 변환할 수 있는 디폴트 자료형인 LinkedHashMap으로 변환을 했기 때문입니다.
+        Assert.assertFalse(first instanceof User);
+        Assert.assertFalse(first instanceof Product);
+        Assert.assertTrue(first instanceof LinkedHashMap);
+    }
+
+    @Test
+    public void 슈퍼타입토큰O_user_api_호출해서_사용한_경우() {
+        List<User> users = restTemplate.exchange(USER_URI,
+                                                 HttpMethod.GET,
+                                                 null,
+                                                 new ParameterizedTypeReference<List<User>>() {})
+                                       .getBody();
+        final Object first = users.get(0);
+        Assert.assertTrue(first instanceof User);
+
+        users.forEach(System.out::println);
+    }
+}
+~~~
 
 ---
 출처: 
