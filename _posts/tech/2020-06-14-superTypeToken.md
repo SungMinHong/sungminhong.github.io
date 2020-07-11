@@ -730,7 +730,7 @@ public class ParameterizedTypeReferenceUsageTest {
 ~~~
 
 ### 6_2. feign에서는 사용하지 않아요~
-- 사내에서 Spring Cloud를 사용하고 있고 선언적으로 작성할 수 있는 feign clinet를 사용하고 있습니다.
+- 사내에서 Spring Cloud를 사용하고 있고 선언적으로 작성할 수 있는 clinet인 feign을 사용하고 있습니다.
 - 혹시나 feign에서도 수퍼 타입 토큰을 사용하는지 알아보게 됐습니다.
 - 인터페이스를 통해 정의되는 feign도 역시 데이터를 decode하기 위해 jackson을 사용하고 있습니다.
 - jackson에서는 JavaType을 이용해 Tyoe casting을 하고 있습니다.
