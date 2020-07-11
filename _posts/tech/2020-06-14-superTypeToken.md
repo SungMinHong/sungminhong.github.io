@@ -729,6 +729,33 @@ public class ParameterizedTypeReferenceUsageTest {
 }
 ~~~
 
+### 6_2. feign에서는 사용하지 않아요~
+- 사내에서 Spring Cloud를 사용하고 있고 선언적으로 작성할 수 있는 feign clinet를 사용하고 있습니다.
+- 혹시나 feign에서도 수퍼 타입 토큰을 사용하는지 알아보게 됐습니다.
+- 인터페이스를 통해 정의되는 feign도 역시 데이터를 decode하기 위해 jackson을 사용하고 있습니다.
+- jackson에서는 JavaType을 이용해 Tyoe casting을 하고 있습니다.
+- JavaType을 만들기 위해서는 역시 Type이 필요합니다. 그래서 Type을 넘겨줄 필요가 있습니다.
+
+~~~ java
+Object decode(Response response, Type type) throws IOException {
+    try {
+      return decoder.decode(response, type);
+    } catch (final FeignException e) {
+      throw e;
+    } catch (final RuntimeException e) {
+      throw new DecodeException(response.status(), e.getMessage(), response.request(), e);
+    }
+  }
+~~~
+
+- 하지만 feign은 java.lang.reflect.Method를 이용해 return할 Type을 가져올 수 있기 때문에 슈퍼타입토큰을 사용할 필요가 없습니다. 🤗
+
+~~~ java
+ public Type getGenericReturnType() {
+        return (Type)(this.getGenericSignature() != null ? this.getGenericInfo().getReturnType() : this.getReturnType());
+    }
+~~~
+
 ---
 출처: 
 1. http://gafter.blogspot.com/2006/12/super-type-tokens.html
