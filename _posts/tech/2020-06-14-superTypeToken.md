@@ -478,8 +478,8 @@ class TypeSafeMapTest {
 }
 ~~~
 
-## 5 구현이 너무 복잡하네요.. 이미 잘 만들어진건 없을까요? 🥺
-### 5.1 Spring의 ParameterizedTypeReference를 사용해주세요! 👏
+## 5. 구현이 너무 복잡하네요.. 이미 잘 만들어진건 없을까요? 🥺
+### 5_1. Spring의 ParameterizedTypeReference를 사용해주세요! 👏
 - TypeReference을 만들기 보다 Spring 횽님의 ParameterizedTypeReference를 사용해 보아요!
 - Spring 프레임워크에서도 동일하게 런타임시 발생하는 타입 안정성 문제를 해결하기 위해 ParameterizedTypeReference라는 클래스를 만들었습니다.
 - Spring core 패키지에 있는 ParameterizedTypeReference는 아래와 같습니다.
@@ -574,7 +574,7 @@ public abstract class ParameterizedTypeReference<T> {
 }
 ~~~
 
-## 6 그렇다면 수퍼 타입 토큰은 주로 어디에 사용할 수 있을까요? 🤔
+## 6. 그렇다면 수퍼 타입 토큰은 주로 어디에 사용할 수 있을까요? 🤔
 
 
 ---
