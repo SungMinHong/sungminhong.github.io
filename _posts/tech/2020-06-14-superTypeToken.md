@@ -233,6 +233,7 @@ public class SimpleTypeSafeMap {
 ## 4. 수퍼 타입 토큰(Super Type Token)
 ### 4_1. 수퍼 타입 토큰이란?
 - 타입 토큰계의 슈퍼맨?
+
 </br>
 
 ![슈퍼맨](https://user-images.githubusercontent.com/18229419/85222296-0de9b180-b3f5-11ea-8bcf-635bc5516c45.png)
