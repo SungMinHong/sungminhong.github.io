@@ -8,7 +8,7 @@ sitemap :
   changefreq : daily
   priority : 1.0
 --- 
-# 서론
+# 시작하며.. 🚗
  &nbsp; 혹시 슈퍼타입 토큰이라는 단어를 들어보셨나요? 저는 사용은 해봤지만 정확한 동작원리는 몰랐습니다. 😵
  저는 모른다는 것을 인식하고 알기 위해 노력하는 것이 개발자의 덕목이라고 생각합니다. 그래서 저는 슈퍼타입토큰이 무엇이고 어떻게 활용할 수 있는지 처음부터 쭉 조사하고 정리하려고 합니다. 🤗
  제가 단계적으로 궁금했던 점을 목차로 만들어 봤습니다. 😁 <br/>
@@ -19,12 +19,19 @@ sitemap :
     1. JAVA와 C#의 제네릭 비교
     2. 왜 JAVA는 Type Erasure를 채택했나요?
     3. Type Erasure
-3. 타입토큰(Type Token) 이란?
-4. 런타임때 타입토큰을 알 수 없다. 그러면 방법이 없나요?
-    1. 수퍼 타입 토큰(Super Type Token) 을 이용하면 해결할 수 있어요!
-5. 하지만 구현이 너무 복잡하네요.. 더 쉬운 방법은 없을까요?
-    1. 스프링에서 제공하는 슈퍼타입토큰을 사용해봅시다
-6. Spring 슈퍼타입토큰은 주로 어디에서 활용 가능할까요?
+3. 타입토큰(Type Token) 이란 무엇일까요?
+	1. 토큰이란?
+	2. 타입 토큰의 정의한다면?
+	3. 클래스 리터럴과 타입 토큰의 의미는?
+	4. 타입 토큰은 어디에 쓰이나요?
+	5. 타입 토큰의 한계점은?
+4. 수퍼 타입 토큰(Super Type Token)으로 한계를 극복해 보아요!
+	1. 수퍼 타입 토큰이란?
+	2. List 내 타입과 같은 중첩된 타입은 어떻게 구할 수 있나요?
+	3. super type token을 이용한 TypeSafeMap 만들어 보아요!
+5. 구현이 너무 복잡하네요.. 이미 잘 만들어진건 없을까요? 🥺
+	1. Spring의 ParameterizedTypeReference를 사용해주세요! 👏
+6. 그렇다면 수퍼 타입 토큰은 주로 어디에 사용할 수 있을까요? 🤔
 
 # 본론 🧐
 ## 1. JAVA 제네릭(Generic)은 뭐죠?
@@ -142,13 +149,13 @@ JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이�
 가장 낮은 단위로 어휘 항목들을 구분할 수 있는 분류 요소 🤗
 ~~~
 
-### 3_2. 타입 토큰의 정의를 해보자면..
+### 3_2. 타입 토큰을 정의한다면?
  자바언어 개발자였던 Neal Gafter는 JAVA JDK5에 generics를 추가할 때 java.lang.Class 가 generic type이 되도록 변경했다고 합니다. 예를들어, String.class의 Type이 Class<String> 되도록 한 것이라고 합니다. 또한 이를 명칭하기 위해 [Gilad Bracha](http://bracha.org/Site/Home.html)라는 분이 타입 토큰이라는 용어를 만들어 줬다고 합니다. 😮 토큰의 전산적 의미를 고려한다면 타입 토큰은 이런 뜻이라고 조심스레 유추해봅니다 ㅎㅎ
 ~~~
 "타입을 나타내는 최소한의 단위"
 ~~~
   
-### 3_3. 클래스 리터럴과 타입 토큰의 의미는..?
+### 3_3. 클래스 리터럴과 타입 토큰의 의미는?
 - 클래스 리터럴(Class Literal)은 String.class, Integer.class 등을 말합니다.
 - String.class의 타입은 Class<String>, Integer.class의 타입은 Class<Integer>입니다.
 - 타입 토큰(Type Token)은 타입을 나타내는 토큰입니다.
@@ -230,7 +237,7 @@ public class SimpleTypeSafeMap {
 - 이런 한계를 극복할 수 있는 해결책이 바로 수퍼 타입 토큰 입니다. 😁
 
 
-## 4. 수퍼 타입 토큰(Super Type Token)
+## 4. 수퍼 타입 토큰(Super Type Token)으로 한계를 극복해 보아요!
 ### 4_1. 수퍼 타입 토큰이란?
 - 타입 토큰계의 슈퍼맨?
 
@@ -250,7 +257,8 @@ public class SimpleTypeSafeMap {
   
 - 타입을 구할 수만 있다면 타입 안전성을 확보할 수 있습니다. 하지만, Class<String>와는 달리 Class<List<String>>라는 타입은 위와 같은 클래스 리터럴로 쉽게 구할 수 없습니다.
 
-### 4_2. Class.getGenericSuperclass()
+### 4_2. List 내 타입과 같은 중첩된 타입은 어떻게 구할 수 있나요? 
+- Class.getGenericSuperclass()와 ParameterizedType.getActualTypeArguments()를 사용하면 됩니다!
 - 쉽게 구할 수 없지만 그래도 방법이 있습니다. [Class.getGenericSuperclass() API 문서](https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getGenericSuperclass--)를 보면 아래 정보를 알 수 있습니다.
 ~~~ java
 // Class.class 내 getGenericSuperclass 메서드
@@ -286,7 +294,7 @@ public class SimpleTypeSafeMap {
     }
 ~~~
 
-### 4_3 ParameterizedType.getActualTypeArguments()
+- ParameterizedType.getActualTypeArguments()
 - 위에 getGenericSuperclass()의 docs 설명을 보면, 수퍼 클래스가 ParameterizedType이면 타입 파라미터를 포함한 정보를 반환해야 한다고 했으며, ParameterizedType은 별도의 문서를 확인하라고 했습니다.
 
 - [ParameterizedType의 API 문서](https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/ParameterizedType.html) 를 보면 Type[] getActualTypeArgumensts()라는 메서드가 있음을 확인할 수 있습니다. 
@@ -315,7 +323,8 @@ public class SimpleTypeSafeMap {
     }
 ~~~
 
-### 4_4. super type token을 이용한 TypeSafeMap 
+### 4_3. super type token을 이용한 TypeSafeMap 만들어 보아요!
+- 이전에 만들었던 SimpleTypeSafeMap은 중첩된 타입토큰을 얻지 못하는 한계가 있었습니다. super type token을 이용해서 한계를 극복한 Map을 만들어 보아요.🤗 
 - TypeSafe한 Map을 만들기 위해 Type 정보를 저장할 TypeReference를 만듭니다. TypeSafeMap을 만들어 TypeReference가 가지고 있는 Type을 이용합니다.
 - TypeReference
 
@@ -469,9 +478,12 @@ class TypeSafeMapTest {
 }
 ~~~
 
-### 4_5 TypeReference을 만들기 보다 ParameterizedTypeReference를 사용
+## 5 구현이 너무 복잡하네요.. 이미 잘 만들어진건 없을까요? 🥺
+### 5.1 Spring의 ParameterizedTypeReference를 사용해주세요! 👏
+- TypeReference을 만들기 보다 Spring 횽님의 ParameterizedTypeReference를 사용해 보아요!
 - Spring 프레임워크에서도 동일하게 런타임시 발생하는 타입 안정성 문제를 해결하기 위해 ParameterizedTypeReference라는 클래스를 만들었습니다.
-- Spring core 패키지에 있는 ParameterizedTypeReference를 사용해주세요!
+- Spring core 패키지에 있는 ParameterizedTypeReference는 아래와 같습니다.
+
 ~~~ java
 /**
  * The purpose of this class is to enable capturing and passing a generic
@@ -561,6 +573,9 @@ public abstract class ParameterizedTypeReference<T> {
 
 }
 ~~~
+
+## 6 그렇다면 수퍼 타입 토큰은 주로 어디에 사용할 수 있을까요? 🤔
+
 
 ---
 출처: 
