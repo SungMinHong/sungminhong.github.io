@@ -728,8 +728,52 @@ public class ParameterizedTypeReferenceUsageTest {
     }
 }
 ~~~
+### 6_2. ObjectMapper에서도 수퍼 타입 토큰을 사용하고 있어요~
 
-### 6_2. feign에서는 사용하지 않아요~!
+- 스프링에서 제공하는 ParameterizedTypeReference을 사용하지는 않습니다.
+- 대신 TypeReference라는 Type을 멤버변수로 가진 추상클래스를 만들어 사용하고 있습니다.
+
+~~~ java
+public abstract class TypeReference<T> implements Comparable<TypeReference<T>> {
+    protected final Type _type;
+
+    protected TypeReference() {
+        Type superClass = this.getClass().getGenericSuperclass();
+        if (superClass instanceof Class) {
+            throw new IllegalArgumentException("Internal error: TypeReference constructed without actual type information");
+        } else {
+            this._type = ((ParameterizedType)superClass).getActualTypeArguments()[0];
+        }
+    }
+
+    public Type getType() {
+        return this._type;
+    }
+
+    public int compareTo(TypeReference<T> o) {
+        return 0;
+    }
+}
+~~~
+
+~~~ java
+    /**
+     * Method to deserialize JSON content from given JSON content String.
+     *
+     * @throws JsonParseException if underlying input contains invalid content
+     *    of type {@link JsonParser} supports (JSON for default case)
+     * @throws JsonMappingException if the input JSON structure does not match structure
+     *   expected for result type (or has other mismatch issues)
+     */
+    public <T> T readValue(String content, TypeReference<T> valueTypeRef)
+        throws JsonProcessingException, JsonMappingException
+    {
+        _assertNotNull("content", content);
+        return readValue(content, _typeFactory.constructType(valueTypeRef));
+    } 
+~~~
+
+### 6_3. feign에서는 사용하지 않아요~!
 - 사내에서 Spring Cloud를 사용하고 있고 선언적으로 작성할 수 있는 clinet인 feign을 사용하고 있습니다.
 - 혹시나 feign에서도 수퍼 타입 토큰을 사용하는지 알아보게 됐습니다.
 - 인터페이스를 통해 정의되는 feign도 역시 데이터를 decode하기 위해 jackson을 사용하고 있습니다.
