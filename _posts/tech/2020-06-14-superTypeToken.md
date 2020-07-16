@@ -767,7 +767,7 @@ public abstract class TypeReference<T> implements Comparable<TypeReference<T>> {
 - JavaType을 만들기 위해서는 역시 Type이 필요합니다. 그래서 Type을 넘겨줄 필요가 있습니다.
 
 ~~~ java
-Object decode(Response response, Type type) throws IOException {
+  Object decode(Response response, Type type) throws IOException {
     try {
       return decoder.decode(response, type);
     } catch (final FeignException e) {
@@ -781,7 +781,7 @@ Object decode(Response response, Type type) throws IOException {
 - 하지만 feign은 java.lang.reflect.Method를 이용해 return할 Type을 가져올 수 있기 때문에 슈퍼타입토큰을 사용할 필요가 없습니다. 🤗
 
 ~~~ java
- public Type getGenericReturnType() {
+    public Type getGenericReturnType() {
         return (Type)(this.getGenericSignature() != null ? this.getGenericInfo().getReturnType() : this.getReturnType());
     }
 ~~~
