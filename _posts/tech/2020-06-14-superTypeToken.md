@@ -294,7 +294,7 @@ public class SimpleTypeSafeMap {
 
 - getActualTypeArguments()를 이용해 출력해보기
 ~~~ java
-@Test
+    @Test
     public void getActualTypeArguments_Type_출력() {
         class Super<T> {}
         class MyClass extends Super<List<String>> {}  // 수퍼 클래스에 사용되는 파라미터 타입을 이용한다. 그래서 수퍼 타입 토큰.
