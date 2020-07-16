@@ -20,15 +20,15 @@ sitemap :
 ## 목차 🤔
 1. JAVA 제네릭(Generic)은 뭐죠?
 2. JAVA 제네릭은 런타임 때 유효한가요?
-    1. JAVA와 C#의 제네릭 비교
-    2. 왜 JAVA는 Type Erasure를 채택했나요?
-    3. Type Erasure
-3. 타입토큰(Type Token) 이란 무엇일까요?
-	1. 토큰이란?
-	2. 타입 토큰의 정의한다면?
-	3. 클래스 리터럴과 타입 토큰의 의미는?
-	4. 타입 토큰은 어디에 쓰이나요?
-	5. 타입 토큰의 한계점은?
+	1. JAVA와 C#의 제네릭 비교
+	2. Type Erasure
+	3. 그렇다면 JAVA는 왜 Type Erasure를 사용했나요?
+	4. 이 문제를 어떻게 해결할 수 있을까요?
+3. 타입 토큰(Type Token) 이란 무엇일까요?
+	1. 타입 토큰의 정의한다면?
+	2. 클래스 리터럴과 타입 토큰의 의미는?
+	3. 타입 토큰은 어디에 쓰이나요?
+	4. 타입 토큰의 한계점은?
 4. 수퍼 타입 토큰(Super Type Token)으로 한계를 극복해 보아요!
 	1. 수퍼 타입 토큰이란?
 	2. List 내 타입과 같은 중첩된 타입은 어떻게 구할 수 있나요?
@@ -127,59 +127,52 @@ class NonGenericListSampleTest {
 
 ## 2. JAVA 제네릭은 완전할까요?
 - 자바에 제네릭이 추가되면서 컴파일 시기때 타입 안정성을 얻을 수 있었습니다.
-- 이 덕분에 IDE에서도 타입이 맞지 않으면 빨간줄로 경고 해줄 수 있습니다.
-- 혹자는 자바의 제네릭이 반쪽짜리 제네릭이라고 하기도 합니다. 그 이유는 자바의 런타임 타입 안정성과 관련이 있습니다 😲
+- 이 덕분에 IDE에서도 타입이 맞지 않으면 미리 경고 해줄 수 있습니다.
+- 무시하고 컴파일을 한다면 당연스럽게 컴파일에러가 발생합니다.
+- 다만 혹자는 자바의 제네릭이 반쪽짜리 제네릭이라고 하기도 합니다. 그 이유는 자바의 런타임 타입 안정성과 관련이 있습니다 😲
 
 ### 2_1. JAVA와 C#의 제네릭 비교
 ![java_vs_c#](https://user-images.githubusercontent.com/18229419/84587561-30128b00-ae5b-11ea-8572-883c06e8bae0.png) <br/>
 출처: https://www.guru99.com/java-vs-c-sharp-key-difference.html
--  C#은 런타임 타입 안정성이 있습니다. 반면에 JAVA의 제네릭은 런타임 타입 안정성이 없습니다. 컴파일 과정에서 Type Erasure 과정을 통해 타입 파라미터를 전부 지웠기 때문입니다.
+-  C#은 런타임 타입 안정성이 있습니다. 반면에 JAVA의 제네릭은 런타임 타입 안정성이 없습니다. 컴파일 과정에서 Type Erasure(타입 소거자) 통해 타입 파라미터를 전부 지웠기 때문입니다.
 
-### 2_2. 왜 JAVA는 Type Erasure를 채택했나요?
-제네릭을 도입할 당시 JAVA와 C#은 보급률에 큰 차이가 있었습니다. JAVA로 구현된 현업 프로젝트가 월등히 많았던 것입니다. 
-JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이를 꼭 지키고자 했습니다. 
-때문에 자바 진영은 컴파일 과정에서 Type Erasure 과정을 통해 타입 파라미터를 전부 지워주고 제네릭이 없던 하위 버전과 동일한 형태로 class 파일을 생성합니다.
-반면 C#은 당시 보급률이 현저히 낮았기 때문에 하위 호완성을 포기하고 컴파일, 런타임 시기에 모두 완전한 제네릭을 적용했습니다.
-
-### 2_3. Type Erasure
+### 2_2. Type Erasure
 - 아래 그림과 같이 컴파일 과정에서 타입을 소거하고 Object로 만듭니다.
 ![type_erasure](https://image.slidesharecdn.com/matoringenerics-160622172122/95/tricky-java-generics-17-638.jpg?cb=1466616158)
 
+### 2_3. 그렇다면 JAVA는 왜 Type Erasure를 사용했나요?
+제네릭을 도입할 당시 JAVA와 C#은 보급률에 큰 차이가 있었습니다. JAVA로 구현된 현업 프로젝트가 월등히 많았던 것입니다. 
+JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이를 꼭 지키고자 했습니다. 
+때문에 자바 진영은 컴파일 과정에서 Type Erasure 과정을 통해 타입 파라미터를 전부 지워주고 제네릭이 없던 하위 버전과 동일한 형태로 class 파일을 생성합니다.
+반면 C#은 당시 보급률이 현저히 낮았기 때문에 하위 호완성을 포기하고 컴파일, 런타임 시기에 모두 완전한 제네릭을 적용했습니다. 다만 이를 보완하기 위해 C#에서도 기계적 마이그레이션을 할 수 있도록 툴을 제공했다고 합니다.
 
-## 3. 타입토큰(Type Token) 이란 무엇일까요?
-### 3_1. 토큰이란?
-![토큰이미지](https://user-images.githubusercontent.com/18229419/84657891-f0799b00-af4f-11ea-8c42-b6baab8c236a.png)
-<br/>
-- 일반적으로 토큰은 버스 요금 등에 사용하기 위하여 회사에서 발행한 동전 모양의 주조물을 의미합니다. 
-- 전산 분야에서는 다음과 같이 정의하고 있습니다.
-~~~
-가장 낮은 단위로 어휘 항목들을 구분할 수 있는 분류 요소 🤗
-~~~
+### 2_4. 이 문제를 어떻게 해결할 수 있을까요?
+자바의 Type Erasure로 인해 제네릭 타입이 런타임때 없어지는 문제로 런타임 때 타입 안정성을 확보할 수 없는 문제가 있습니다. 자바에서 이 문제를 수퍼 타입 토큰을 이용해 해결할 수 있습니다. 이를 위해 타입 토큰부터 슈퍼 타입 토큰에 대해 전반적으로 알아보겠습니다.  
 
-### 3_2. 타입 토큰을 정의한다면?
+## 3. 타입 토큰(Type Token) 이란 무엇일까요?
+
+### 3_1. 타입 토큰을 정의한다면?
  자바언어 개발자였던 Neal Gafter는 JAVA JDK5에 generics를 추가할 때 java.lang.Class 가 generic type이 되도록 변경했다고 합니다. 예를들어, String.class의 Type이 Class&lt;String&gt; 되도록 한 것이라고 합니다. 또한 이를 명칭하기 위해 [Gilad Bracha](http://bracha.org/Site/Home.html)라는 분이 타입 토큰이라는 용어를 만들어 줬다고 합니다. 😮 토큰의 전산적 의미를 고려한다면 타입 토큰은 이런 뜻이라고 조심스레 유추해봅니다 ㅎㅎ
 ~~~
-타입을 나타내는 최소한의 단위"
+"클래스 타입을 나타낼 수 있는 최소한의 정보"
 ~~~
 
-### 3_3. 클래스 리터럴과 타입 토큰의 의미는?
+### 3_2. 클래스 리터럴과 타입 토큰의 의미는?
 - 클래스 리터럴(Class Literal)은 String.class, Integer.class 등을 말합니다.
 - String.class의 타입은 Class&lt;String&gt;, Integer.class의 타입은 Class&lt;Integer&gt;입니다.
-- 타입 토큰(Type Token)은 타입을 나타내는 토큰입니다.
-- 클래스 리터럴은 타입 토큰으로서 사용됩니다.
-- 예시
+- 클래스 리터럴은 타입 토큰으로서 사용됩니다. Class.class 와 Class&lt;String&gt 가 동일하다고 생각하면 좀 더 이해가 될 것 같습니다.
+- 아래는 클래스 리터럴과 타입 토큰의 관계를 보여주는 예시입니다.
   ~~~ java
-  // 11st_method(Class<?> clazz) 와 같은 메서드는 타입 토큰을 인자로 받는 메서드입니다.
-  void 11st_method(Class<?> clazz) {
+  // 아래와 같은 메서드는 타입 토큰을 인자로 받는 메서드입니다.
+  void myMethod(Class<?> clazz) {
     ...
   }
   
-  // 11st_method(String.class)로 호출하면,
-  // String.class라는 클래스 리터럴을 타입 토큰 파라미터로 11st_method에 전달합니다.
-  11st_method(String.class);
+  // String.class라는 클래스 리터럴을 타입 토큰 파라미터로 myMethod에 전달합니다.
+  myMethod(String.class);
   ~~~
 
-### 3_4. 타입 토큰은 어디에 쓰이나요?
+### 3_3. 타입 토큰은 어디에 쓰이나요?
 - 주로 타입 토큰은 타입 안전성이 필요한 곳에 사용됩니다.
 - 예시
   ~~~ java
@@ -191,10 +184,9 @@ JAVA는 하위 호완성을 지키는 언어로 많은 사랑을 받았고 이�
   ...
   }
   ~~~
-### 3_5. 타입 토큰의 한계점은?
+### 3_4. 타입 토큰의 한계점은?
 - 사례로 THC(Typesafe Heterogenous Container) pattern을 들어 보겠습니다.
 - 위 패턴이 적용된 SimpleTypeSafeMap을 만들어 보겠습니다.
-
 ~~~ java
 public class SimpleTypeSafeMap {
     private Map<Class<?>, Object> map = new HashMap<>();
@@ -209,7 +201,7 @@ public class SimpleTypeSafeMap {
 }
 ~~~
 
-- 타입 토큰을 이용해서 별도의 캐스팅 없이도 타입 안전성이 확보가능해졌습니다.
+- 타입 토큰을 이용해서 별도의 캐스팅 없이도 타입 안전성이 확보 가능해졌습니다.
 
 ~~~ java
     @Test
@@ -226,7 +218,7 @@ public class SimpleTypeSafeMap {
     }
 ~~~
 
-- 하지만 List<String>.class와 같은 형식의 타입 토큰을 사용할 수 없다는 한계를 가지고 있습니다.
+- 하지만 List&lt;String&gt.class와 같은 클래스 리터럴은 존재하지 않습니다. 타입 이레이저에 의해 이런 형식의 타입 토큰을 사용할 수 없다는 한계를 가지고 있습니다.
   
 ~~~ java
     @Test
@@ -250,17 +242,13 @@ public class SimpleTypeSafeMap {
 
 ![슈퍼맨](https://user-images.githubusercontent.com/18229419/85222296-0de9b180-b3f5-11ea-8bcf-635bc5516c45.png)
 
-- 수퍼 타입 토큰은 Neal Gafter라는 사람이 처음 고안한 방법으로 알려져 있습니다. 수퍼급의 타입 토큰이 아니라, 수퍼 타입을 토큰으로 사용한다는 의미입니다.
+- 수퍼 타입 토큰은 Neal Gafter라는 사람이 처음 고안한 방법으로 알려져 있습니다. 수퍼급의 타입 토큰이 아니라, 수퍼 타입을 토큰으로 사용한다는 의미입니다. 😲
 
 <br/>
 
-- 수퍼 타입 토큰은 상속과 Reflection을 기발하게 조합해서 아래 같이, 원래는 사용할 수 없었던 클래스 리터럴을 타입 토큰으로 사용하는 것과 같은 효과를 낼 수 있습니다.
-
-~~~ java
-  List<String>.class
-~~~
-  
-- 타입을 구할 수만 있다면 타입 안전성을 확보할 수 있습니다. 하지만, Class<String>와는 달리 Class<List<String>>라는 타입은 위와 같은 클래스 리터럴로 쉽게 구할 수 없습니다.
+- 수퍼 타입 토큰은 상속과 Reflection을 기발하게 조합해서 List&lt;String&gt;.class 같이, 원래는 사용할 수 없었던 클래스 리터럴을 타입 토큰으로 사용하는 것과 같은 효과를 낼 수 있습니다.
+- 앞에서 클래스 리터럴을 설명할 때, String.class의 타입이 Class&lt;String&gt;이라고 했었습니다. Class&lt;String&gt;이라는 타입 정보를 String.class라는 클래스 리터럴로 구할 수 있었던 덕분에 타입 안전성을 확보할 수 있었습니다.
+- List&lt;String&gt;.class도 타입을 구할 수만 있다면 타입 안전성을 확보할 수 있다는 것은 마찬가지 입니다. 다만 Class&lt;List&lt;String&gt;&gt;라는 타입은 List&lt;String&gt;.class 같은 클래스 리터럴로 쉽게 구할 수 없다는 점이 다릅니다. 하지만 어떻게든 Class&lt;List&lt;String&gt;&gt;라는 타입을 구할 수 있다면, 타입 안전성을 확보할 수 있습니다.
 
 ### 4_2. List 내 타입과 같은 중첩된 타입은 어떻게 구할 수 있나요? 
 - Class.getGenericSuperclass()와 ParameterizedType.getActualTypeArguments()를 사용하면 됩니다!
@@ -329,7 +317,7 @@ public class SimpleTypeSafeMap {
 ~~~
 
 ### 4_3. super type token을 이용한 TypeSafeMap 만들어 보아요!
-- 이전에 만들었던 SimpleTypeSafeMap은 중첩된 타입토큰을 얻지 못하는 한계가 있었습니다. super type token을 이용해서 한계를 극복한 Map을 만들어 보아요.🤗 
+- 이전에 만들었던 SimpleTypeSafeMap은 중첩된 타입토큰을 얻지 못하는 한계가 있었습니다. super type token을 이용해서 한계를 극복한 Map을 만들어 보겠습니다.🤗 
 - TypeSafe한 Map을 만들기 위해 Type 정보를 저장할 TypeReference를 만듭니다. TypeSafeMap을 만들어 TypeReference가 가지고 있는 Type을 이용합니다.
 - TypeReference
 
