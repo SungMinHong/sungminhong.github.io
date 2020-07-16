@@ -248,8 +248,6 @@ public class SimpleTypeSafeMap {
 ### 4_1. 수퍼 타입 토큰이란?
 - 타입 토큰계의 슈퍼맨?
 
-</br>
-
 ![슈퍼맨](https://user-images.githubusercontent.com/18229419/85222296-0de9b180-b3f5-11ea-8bcf-635bc5516c45.png)
 
 - 수퍼 타입 토큰은 Neal Gafter라는 사람이 처음 고안한 방법으로 알려져 있습니다. 수퍼급의 타입 토큰이 아니라, 수퍼 타입을 토큰으로 사용한다는 의미입니다.
