@@ -372,10 +372,12 @@ public class TypeSafeMap {
 }
 ~~~
 
-- 자바 casting은 제니릭이 없는 상태로만 가능합니다. getRawType()을 호출하면 RawType을 가져올 수 있습니다.
-- [JLS 4.8](https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.8)를 문서를 보면 아래와 같은 문구가 있습니다.
+- getRawType()을 호출하면 RawType을 가져올 수 있습니다.
+- RawType을 알기 위해 [JLS 4.8](https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.8)의 문서를 보면 아래와 같은 문구가 있는 것을 확인할 수 있습니다.
 - "The superclasses (respectively, superinterfaces) of a raw type are the erasures of the superclasses (superinterfaces) of any of the parameterizations of the generic type."
-- 예를 들어 List<String>이라는 정보를 알게됐더라도 casting할 때는 List.class로 캐스팅하게 됩니다.
+- 대략적인 뜻은 제네릭 타입이 모두 소거된 superclasses가 RawType이라는 것을 확인할 수 있습니다.
+- 예를 들어 List<String> 정보를 가지고 있는 ParameterizedType를 받아서 getRawType()으로 RawType을 가져오게 되면 그 값은 List.class 입니다.
+- 이제 제네릭 정보가 모두 제거된 RawType을 통해 Type Casting을 할 수 있습니다!
 
 - 자료형별 put과 get을 테스트하는 코드를 아래와 같이 작성했습니다.
 
@@ -795,7 +797,14 @@ public abstract class TypeReference<T> implements Comparable<TypeReference<T>> {
 ~~~
 
 # 결론
-- 타입 안정성을 확보하기 위해서는 
+- 타입 안정성을 확보하기 위해서는 런타임 때도 제네릭 정보도 알 수 있어야 합니다.
+- 하지만 타입 소거자에 의해 제네릭 타입은 사라집니다.
+- 이를 극복하기 위한 편법으로 수퍼 타입 토큰을 이용합니다.
+- 수퍼 타입을 이용하면 제네릭 타입을 넣을 수 있습니다.
+- 많은 라이브러리에서 사용자에게 수퍼 타입 토큰을 담을 수 있는 추상클래스를 제공하고 있습니다.
+- 사용자는 단순히 익명클래스에 제네릭 타입 정보를 넣어서 전달하면 됩니다.
+- 그러면 ObjectMapper, Gson 같은 라이브러리에서 그 정보를 보고 타입 캐스팅을 하며 타입이 안맞을 경우 예외를 발생시킬 수 있습니다.
+- 선언적인 프로그래밍이 가능한 feign은 클래스 내부의 메서드 정보에서 return되는 Object의 제네릭 정보도 가져올 수 있기 때문에 수퍼 타입 토큰이 필요 없습니다.
 
 ---
 출처: 
