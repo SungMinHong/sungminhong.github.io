@@ -796,7 +796,7 @@ public abstract class TypeReference<T> implements Comparable<TypeReference<T>> {
     }
 ~~~
 
-# 결론
+# 결론 😘
 - 타입 안정성을 확보하기 위해서는 런타임 때도 제네릭 정보도 알 수 있어야 합니다.
 - 하지만 타입 소거자에 의해 제네릭 타입은 사라집니다.
 - 이를 극복하기 위한 편법으로 수퍼 타입 토큰을 이용합니다.
