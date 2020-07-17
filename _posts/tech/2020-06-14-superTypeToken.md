@@ -1,5 +1,5 @@
 ---
-title: "[Spring] 수퍼 타입 토큰"
+title: "[Spring] 수퍼 타입 토큰 뽀개기"
 date: 2020-06-14 00:00:00
 lastmod : 2020-07-12 00:00:00
 categories: [Spring]
@@ -14,8 +14,8 @@ sitemap :
 
 # 시작하며..  🚗
  &nbsp; 혹시 슈퍼타입 토큰이라는 단어를 들어보셨나요? 저는 사용은 해봤지만 정확한 동작원리는 몰랐습니다. 😵
- 저는 모른다는 것을 인식하고 알기 위해 노력하는 것이 개발자의 덕목이라고 생각합니다. 그래서 저는 슈퍼타입토큰이 무엇이고 어떻게 활용할 수 있는지 처음부터 쭉 조사하고 정리하려고 합니다. 🤗
- 제가 단계적으로 궁금했던 점을 목차로 만들어 봤습니다. 😁 <br/>
+ 그래서 슈퍼타입토큰이 무엇이고 어떻게 활용될 수 있는지 처음부터 쭉 조사하고 정리해보는 시간을 가졌습니다. 🤗
+ 제가 단계적으로 궁금했던 점을 목차로 만들었고 이대로 쭉 정리해보겠습니다. 😁 <br/>
 
 ## 목차 🤔
 1. JAVA 제네릭(Generic)은 뭐죠?
@@ -288,9 +288,9 @@ public class SimpleTypeSafeMap {
 ~~~
 
 - ParameterizedType.getActualTypeArguments()
-- 위에 getGenericSuperclass()의 docs 설명을 보면, 수퍼 클래스가 ParameterizedType이면 타입 파라미터를 포함한 정보를 반환해야 한다고 했으며, ParameterizedType은 별도의 문서를 확인하라고 했습니다.
+- 위에 getGenericSuperclass()의 docs 설명을 보면, 수퍼 클래스가 ParameterizedType이면 타입 파라미터를 포함한 정보를 반환해야 한다고 했으며, ParameterizedType은 별도의 문서를 확인하라고 했습니다.쉽게 말하자면 ParameterizedType은 제네릭 타입을 가지고 있는 Type입니다.
 
-- [ParameterizedType의 API 문서](https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/ParameterizedType.html) 를 보면 Type[] getActualTypeArgumensts()라는 메서드가 있음을 확인할 수 있습니다. 
+- [ParameterizedType의 API 문서](https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/ParameterizedType.html) 를 보면 Type[] getActualTypeArgumensts()라는 메서드가 있음을 확인할 수 있습니다. 위에서 말씀드린 것 터럼 제네릭 타입이 있는 타입이기 때문에 제네릭의 실제 타입을 가져올 수 있습니다.
 
 - getActualTypeArguments()를 이용해 출력해보기
 ~~~ java
@@ -319,7 +319,7 @@ public class SimpleTypeSafeMap {
 ### 4_3. super type token을 이용한 TypeSafeMap 만들어 보아요!
 - 이전에 만들었던 SimpleTypeSafeMap은 중첩된 타입토큰을 얻지 못하는 한계가 있었습니다. super type token을 이용해서 한계를 극복한 Map을 만들어 보겠습니다.🤗 
 - TypeSafe한 Map을 만들기 위해 Type 정보를 저장할 TypeReference를 만듭니다. TypeSafeMap을 만들어 TypeReference가 가지고 있는 Type을 이용합니다.
-- TypeReference
+- TypeReference: 수퍼 타입 토큰을 저장하기 위한 추상클래스를 만들었습니다.
 
 ~~~ java
 import java.lang.reflect.ParameterizedType;
@@ -343,7 +343,7 @@ public abstract class TypeReference<T> {
 }
 ~~~
 
-- TypeSafeMap
+- TypeSafeMap: 수퍼 타입 토큰을 가지고 있는 TypeReference의 익명클래스를 파라미터로 받아 타입 안전성을 확보한 Map입니다.
 
 ~~~ java
 import java.lang.reflect.ParameterizedType;
@@ -371,7 +371,7 @@ public class TypeSafeMap {
 }
 ~~~
 
-- 자료형별 put과 get을 테스트하는 코드 작성
+- 자료형별 put과 get을 테스트하는 코드를 아래와 같이 작성했습니다.
 
 ~~~ java
 import java.util.Arrays;
@@ -471,10 +471,10 @@ class TypeSafeMapTest {
 }
 ~~~
 
-## 5. 구현이 너무 복잡하네요.. 이미 잘 만들어진건 없을까요? 🥺
+## 5. 하지만 직접 구현하기에는 너무 복잡하네요.. 이미 잘 만들어진 라이브러리는 없을까요? 🥺
 ### 5_1. Spring의 ParameterizedTypeReference를 사용해주세요! 👏
-- TypeReference을 만들기 보다 Spring 횽님의 ParameterizedTypeReference를 사용해 보아요!
-- Spring 프레임워크에서도 동일하게 런타임시 발생하는 타입 안정성 문제를 해결하기 위해 ParameterizedTypeReference라는 클래스를 만들었습니다.
+- TypeReference을 만들기 보다 Spring 횽님의 ParameterizedTypeReference를 사용해 보세요!
+- Spring 프레임워크에서도 동일하게 런타임시 발생하는 타입 안정성 문제를 해결하기 위해 ParameterizedTypeReference라는 클래스를 만들었습니다. 클래스 네이밍을 생각해보면 ParameterizedType을 가진 Reference라는 뜻인 것 같습니다. 앞서 말씀드린 것 같이 ParameterizedType은 제네릭 타입을 가지고 있는 Type을 의미합니다. 즉 이 클래스는 제네릭을 가지고 있는 Type을 넘기고 싶을 때 사용하면 될 것 같습니다.
 - Spring core 패키지에 있는 [ParameterizedTypeReference](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/ParameterizedTypeReference.html)는 아래와 같습니다.
 
 ~~~ java
@@ -568,7 +568,7 @@ public abstract class ParameterizedTypeReference<T> {
 ~~~
 
 ## 6. 그렇다면 수퍼 타입 토큰은 주로 어디에 사용할 수 있을까요? 🤔
-### 6_1. RestTemplate
+### 6_1. RestTemplate을 사용할 때
 - 다른 서버에 있는 자원을 가져오고 싶을 때 Client 라이브러리를 이용하는데요.
 - 그 중에서 RestTemplate를 예를 들고 슈퍼 타입 토큰을 이용해 타입 안정성을 확보해보겠습니다.
 - 우선 API 2개를 만들고 테스트 코드를 통해 검증해 보겠습니다. 시이작!
@@ -660,7 +660,7 @@ public class DemoApplication {
 ~~~
 
 - 테스트 코드를 작성합니다.
-- 테스트 코드에서는 ParameterizedTypeReference를 익명클래스로 계속 만들어 사용중 이지만 실제로 사용하신다면 static하게 한번만 만들고 재사용함 함으로써 성능을 향상시키면 좋을것 같습니다~!👻
+- 테스트 코드에서는 ParameterizedTypeReference를 익명클래스로 계속 만들어 사용중 이지만 실제로 사용하신다면 static하게 한번 만들고 재사용함 함으로써 성능을 향상시키면 좋을것 같습니다~!👻
 
 ~~~ java
 import java.util.LinkedHashMap;
@@ -714,7 +714,7 @@ public class ParameterizedTypeReferenceUsageTest {
     }
 }
 ~~~
-### 6_2. ObjectMapper에서도 수퍼 타입 토큰을 사용하고 있어요~
+### 6_2. ObjectMapper를 사용할 때
 
 - 스프링에서 제공하는 ParameterizedTypeReference을 사용하지는 않습니다.
 - 대신 TypeReference라는 Type을 멤버변수로 가진 추상클래스를 만들어 사용하고 있습니다.
@@ -759,11 +759,11 @@ public abstract class TypeReference<T> implements Comparable<TypeReference<T>> {
     } 
 ~~~
 
-### 6_3. feign에서는 사용하지 않아요~!
+### 6_3. 단, feign에서는 사용하지 않아요~!
 - 사내에서 Spring Cloud를 사용하고 있고 선언적으로 작성할 수 있는 clinet인 feign을 사용하고 있습니다.
 - 혹시나 feign에서도 수퍼 타입 토큰을 사용하는지 알아보게 됐습니다.
 - 인터페이스를 통해 정의되는 feign도 역시 데이터를 decode하기 위해 jackson을 사용하고 있습니다.
-- jackson에서는 JavaType을 이용해 Tyoe casting을 하고 있습니다.
+- jackson에서는 JavaType을 이용해 Type casting을 하고 있습니다.
 - JavaType을 만들기 위해서는 역시 Type이 필요합니다. 그래서 Type을 넘겨줄 필요가 있습니다.
 
 ~~~ java
@@ -779,12 +779,15 @@ public abstract class TypeReference<T> implements Comparable<TypeReference<T>> {
 ~~~
 
 - 하지만 feign은 java.lang.reflect.Method를 이용해 return할 Type을 가져올 수 있기 때문에 슈퍼타입토큰을 사용할 필요가 없습니다. 🤗
+- Type의 자식이며 제네릭 타입도 가지고 있는 ParameterizedType도 당연히 사용될 수 있습니다!
 
 ~~~ java
     public Type getGenericReturnType() {
         return (Type)(this.getGenericSignature() != null ? this.getGenericInfo().getReturnType() : this.getReturnType());
     }
 ~~~
+
+# 결론
 
 ---
 출처: 
