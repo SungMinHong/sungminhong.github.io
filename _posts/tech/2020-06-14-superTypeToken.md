@@ -362,6 +362,7 @@ public class TypeSafeMap {
         final Type type = k.getType();
         final Class<T> clazz;
         if (type instanceof ParameterizedType) {
+	    // 여기서 getRawType()을 통해 RawType을 가져오고 있습니다.
             clazz = (Class<T>) ((ParameterizedType) type).getRawType();
         } else {
             clazz = (Class<T>) type;
@@ -370,6 +371,11 @@ public class TypeSafeMap {
     }
 }
 ~~~
+
+- 자바 casting은 제니릭이 없는 상태로만 가능합니다. getRawType()을 호출하면 RawType을 가져올 수 있습니다.
+- [JLS 4.8](https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html#jls-4.8)를 문서를 보면 아래와 같은 문구가 있습니다.
+- "The superclasses (respectively, superinterfaces) of a raw type are the erasures of the superclasses (superinterfaces) of any of the parameterizations of the generic type."
+- 예를 들어 List<String>이라는 정보를 알게됐더라도 casting할 때는 List.class로 캐스팅하게 됩니다.
 
 - 자료형별 put과 get을 테스트하는 코드를 아래와 같이 작성했습니다.
 
@@ -789,6 +795,7 @@ public abstract class TypeReference<T> implements Comparable<TypeReference<T>> {
 ~~~
 
 # 결론
+- 타입 안정성을 확보하기 위해서는 
 
 ---
 출처: 
