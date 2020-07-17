@@ -764,7 +764,7 @@ public abstract class TypeReference<T> implements Comparable<TypeReference<T>> {
 - 혹시나 feign에서도 수퍼 타입 토큰을 사용하는지 알아보게 됐습니다.
 - 인터페이스를 통해 정의되는 feign도 역시 데이터를 decode하기 위해 jackson을 사용하고 있습니다.
 - jackson에서는 JavaType을 이용해 Type casting을 하고 있습니다.
-- JavaType을 만들기 위해서는 역시 Type이 필요합니다. 그래서 Type을 넘겨줄 필요가 있습니다.
+- 여기서 JavaType을 만들기 위해서 역시 Type이 필요합니다. 그래서 Type을 넘겨줄 필요가 있습니다.
 
 ~~~ java
   Object decode(Response response, Type type) throws IOException {
@@ -778,8 +778,9 @@ public abstract class TypeReference<T> implements Comparable<TypeReference<T>> {
   }
 ~~~
 
-- 하지만 feign은 java.lang.reflect.Method를 이용해 return할 Type을 가져올 수 있기 때문에 슈퍼타입토큰을 사용할 필요가 없습니다. 🤗
-- Type의 자식이며 제네릭 타입도 가지고 있는 ParameterizedType도 당연히 사용될 수 있습니다!
+- 하지만 feign은 java.lang.reflect.Method를 이용해 return할 Type을 가져올 수 있기 때문에 수퍼 타입 토큰을 사용할 필요가 없습니다. 🤗
+- 빈초기화 시기때 빈을 만들면서 리플렉션을 통해 클래스내 메서드 정보를 가져올 수 있고 이때 Type 또한 가져올 수 있습니다.
+- 결국 제네릭 타입 정보를 가지고 있는 ParameterizedType 또한 가져올 수 있기 때문에 이를 ObjectMapper 등에 전달할 수 있었고 안전하게 타입 캐스팅이 가능했던 것입니다.
 
 ~~~ java
     public Type getGenericReturnType() {
