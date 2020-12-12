@@ -9,6 +9,7 @@ sitemap :
   priority : 1.0
 --- 
 
+발표를 위해 최신화 했습니다. [발표 자료 링크](https://github.com/SungMinHong/sungminhong.github.io/files/5682651/default.pdf)
 
  &nbsp; 혹시 수퍼 타입 토큰이라는 용어를 들어보셨나요? 저는 수퍼 타입 토큰을 사용해봤지만 정확한 동작원리를 알지는 못했었습니다. ㅎㅎ 
  그래서 답답한 마음이 있었고 수퍼 타입 토큰이 무엇이고 어떻게 활용될 수 있는지 처음부터 쭉 조사하고 정리해보는 시간을 가져봤습니다. 🤗 
