@@ -5,5 +5,3 @@ main:
     url: /categories/
   - title: "Tag"
     url: /tags/
-  - title: "Portfolio"
-    url: /assets/portfolio
